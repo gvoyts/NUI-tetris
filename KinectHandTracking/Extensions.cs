@@ -238,6 +238,9 @@ namespace KinectHandTracking
             if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
 
             Point point = hand.Scale(mapper);
+            Point point2 = new Point(0, positionY);
+            Console.WriteLine("in moving: " + point.X + " and: " + point.Y);
+
 
             Rectangle tetrisPiece = new Rectangle
             {
@@ -248,9 +251,10 @@ namespace KinectHandTracking
             };
 
             Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
-            Canvas.SetTop(tetrisPiece, positionY);
+            Canvas.SetTop(tetrisPiece, point2.Y - tetrisPiece.Width / 2);
 
             canvas.Children.Add(tetrisPiece);
+
 
             return (point.X - tetrisPiece.Width / 2);
         }
@@ -258,8 +262,11 @@ namespace KinectHandTracking
         public static void DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
         {
             //if (hand.TrackingState == TrackingState.NotTracked) return;
+            Console.WriteLine("in stat: x: " + position);
 
             Point point = new Point(position,positionY);
+            Console.WriteLine("in stationary: " + point.X + " and: " + point.Y);
+
 
             Rectangle tetrisPiece = new Rectangle
             {
@@ -270,7 +277,7 @@ namespace KinectHandTracking
             };
 
             Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
-            Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Height / 2);
+            Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Width / 2);
 
             canvas.Children.Add(tetrisPiece);
 

@@ -24,6 +24,7 @@ namespace KinectHandTracking
     /// </summary>
     public partial class MainWindow : Window
     {
+
         #region Members
 
         KinectSensor _sensor;
@@ -32,6 +33,7 @@ namespace KinectHandTracking
         double lastTetrisPiecePosition;
         double currentTetrisPieceTimer;
         //private static Timer timer;
+        #endregion
 
         #region Constructor
 
@@ -39,7 +41,7 @@ namespace KinectHandTracking
         {
             InitializeComponent();
             lastTetrisPiecePosition = 0.0;
-            currentTetrisPieceTimer = 0.0;
+            currentTetrisPieceTimer = 0;
             //SetTimer();
         }
 
@@ -179,7 +181,14 @@ namespace KinectHandTracking
                                 {
                                     canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
                                 }
-                                currentTetrisPieceTimer += 0.1;
+                                currentTetrisPieceTimer += 2;
+                                //currentTetrisPieceTimer = 1.0;
+                                if (currentTetrisPieceTimer > 800)
+                                {
+                                    currentTetrisPieceTimer = 0;
+                                }
+
+                                //Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
 
                                 tblRightHandState.Text = rightHandState;
                                 tblLeftHandState.Text = leftHandState;

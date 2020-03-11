@@ -233,7 +233,7 @@ namespace KinectHandTracking
             canvas.Children.Add(line);
         }
 
-        public static double DrawTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper)
+        public static double DrawMovingRectangle(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper)
         {
             if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
 
@@ -259,7 +259,7 @@ namespace KinectHandTracking
             return (point.X - tetrisPiece.Width / 2);
         }
 
-        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
+        public static double DrawStationaryRectangle(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
         {
             //if (hand.TrackingState == TrackingState.NotTracked) return;
             Console.WriteLine("in stat: x: " + position);
@@ -280,6 +280,72 @@ namespace KinectHandTracking
             Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Width / 2);
 
             canvas.Children.Add(tetrisPiece);
+
+            return (point.X - tetrisPiece.Width / 2);
+        }
+
+        public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper)
+        {
+            if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
+
+            Point point = hand.Scale(mapper);
+            Point point2 = new Point(0, positionY);
+
+
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri("tetrisPiece2.png", UriKind.Relative);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            var tetrisPiece = new Image
+            {
+                Height = 200,
+                Width = 200,
+                Source = bitmap
+            };
+
+            Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
+            Canvas.SetTop(tetrisPiece, point2.Y - tetrisPiece.Width / 2);
+
+            canvas.Children.Add(tetrisPiece);
+
+
+            return (point.X - tetrisPiece.Width / 2);
+        }
+
+        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
+        {
+
+            Point point = new Point(position, positionY);
+
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri("tetrisPiece2.png", UriKind.Relative);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            var tetrisPiece = new Image
+            {
+                Height = 200,
+                Width = 200,
+                Source = bitmap
+            };
+
+            Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
+            Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Height / 2);
+
+            canvas.Children.Add(tetrisPiece);
+
+            /*Image img = new Image
+            {
+                Width = 20,
+                Height = 20,
+                Source = new BitmapImage(new Uri("tetrisPiece2.png", UriKind.Relative)),
+            };
+
+            Canvas.SetLeft(img, point.X - img.Width / 2);
+            Canvas.SetTop(img, point.Y - img.Height / 2);
+
+            canvas.Children.Add(img);*/
 
             return (point.X - tetrisPiece.Width / 2);
         }

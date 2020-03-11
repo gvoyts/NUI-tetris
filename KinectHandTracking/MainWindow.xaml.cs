@@ -180,12 +180,15 @@ namespace KinectHandTracking
                                         break;
                                 }
 
+
                                 if(rightHandState == "Closed")
                                 {
-                                    lastTetrisPiecePosition = canvas.DrawTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+                                    lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper);
                                 }
                                 else
                                 {
+                                    //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+
                                     lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
                                 }
                                 currentTetrisPieceTimer += 2;
@@ -200,6 +203,8 @@ namespace KinectHandTracking
                                     lastTetrisPiecePosition = 500;
 
                                 }
+
+                                //canvas.DrawPic(100, 100, _sensor.CoordinateMapper);
 
                                 Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
 

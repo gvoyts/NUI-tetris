@@ -24,14 +24,20 @@ namespace KinectHandTracking
     /// </summary>
     public partial class MainWindow : Window
     {
+
         #region Members
 
         KinectSensor _sensor;
         MultiSourceFrameReader _reader;
         IList<Body> _bodies;
         double lastTetrisPiecePosition;
+        double lastTetrisPiecePosition2;
+
         double currentTetrisPieceTimer;
+        Point piecePosition;
         //private static Timer timer;
+        List<Rectangle> shapeList = new List<Rectangle>();
+        #endregion
 
         #region Constructor
 
@@ -39,7 +45,10 @@ namespace KinectHandTracking
         {
             InitializeComponent();
             lastTetrisPiecePosition = 0.0;
-            currentTetrisPieceTimer = 0.0;
+            lastTetrisPiecePosition2 = 0.0;
+
+            currentTetrisPieceTimer = 0;
+            //piecePosition = new Point(0, 0);
             //SetTimer();
         }
 
@@ -177,9 +186,22 @@ namespace KinectHandTracking
                                 }
                                 else
                                 {
-                                    canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
                                 }
-                                currentTetrisPieceTimer += 0.1;
+                                currentTetrisPieceTimer += 2;
+                                //currentTetrisPieceTimer = 1.0;
+                                if (currentTetrisPieceTimer > 800)
+                                {
+
+                                    currentTetrisPieceTimer = 0;
+                                    //create a  matrix/list of all fallen pieces and store their locations
+                                    //while loop through list and draw these pieces continuously
+                                    //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
+                                    lastTetrisPiecePosition = 500;
+
+                                }
+
+                                Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
 
                                 tblRightHandState.Text = rightHandState;
                                 tblLeftHandState.Text = leftHandState;

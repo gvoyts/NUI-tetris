@@ -259,12 +259,12 @@ namespace KinectHandTracking
             return (point.X - tetrisPiece.Width / 2);
         }
 
-        public static void DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
+        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
         {
             //if (hand.TrackingState == TrackingState.NotTracked) return;
             Console.WriteLine("in stat: x: " + position);
 
-            Point point = new Point(position,positionY);
+            Point point = new Point(position, positionY);
             Console.WriteLine("in stationary: " + point.X + " and: " + point.Y);
 
 
@@ -281,7 +281,7 @@ namespace KinectHandTracking
 
             canvas.Children.Add(tetrisPiece);
 
-            //return (point.X - tetrisPiece.Width / 2);
+            return (point.X - tetrisPiece.Width / 2);
         }
 
         #endregion

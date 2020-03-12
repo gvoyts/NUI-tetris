@@ -34,6 +34,7 @@ namespace KinectHandTracking
         double lastTetrisPiecePosition2;
 
         double currentTetrisPieceTimer;
+        private List<GestureDetector> gestureDetectorList = null;
         Point piecePosition;
         //private static Timer timer;
         List<Rectangle> shapeList = new List<Rectangle>();
@@ -48,6 +49,7 @@ namespace KinectHandTracking
             lastTetrisPiecePosition2 = 0.0;
 
             currentTetrisPieceTimer = 0;
+            this.gestureDetectorList = new List<GestureDetector>();
             //piecePosition = new Point(0, 0);
             //SetTimer();
         }
@@ -207,6 +209,13 @@ namespace KinectHandTracking
                                 //canvas.DrawPic(100, 100, _sensor.CoordinateMapper);
 
                                 Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
+
+
+
+                                GestureResultView result = new GestureResultView(0, false, false, 0.0f);
+                                GestureDetector detector = new GestureDetector(_sensor, result);
+                                this.gestureDetectorList.Add(detector);
+
 
                                 tblRightHandState.Text = rightHandState;
                                 tblLeftHandState.Text = leftHandState;

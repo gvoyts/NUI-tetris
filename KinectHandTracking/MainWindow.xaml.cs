@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Timers;
 using System.Threading.Tasks;
-//using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -36,8 +35,9 @@ namespace KinectHandTracking
         double currentTetrisPieceTimer;
         Point piecePosition;
         //private static Timer timer;
-        List<Rectangle> shapeList = new List<Rectangle>();
+        List<Point> shapePointList = new List<Point>();
         List<string> listOfPieces = new List<string>();
+        List<KeyValuePair<Point, string>> finalTetrisBoard = new List<KeyValuePair<Point, string>>();
         int index; 
         #endregion
 
@@ -57,8 +57,7 @@ namespace KinectHandTracking
             listOfPieces.Add("tetrisPieceL.png");
             listOfPieces.Add("tetrisPieceI.png");
             listOfPieces.Add("tetrisPieceO.png");
-            //var list = new List<string>{ "one","two","three","four"};
-            //string[] listOfPieces = new string[2]{"tetrisPiece2.png", "tetrisPieceT.png"};
+         
             Random rand = new Random();
             index = rand.Next(listOfPieces.Count);
         }
@@ -192,7 +191,32 @@ namespace KinectHandTracking
                                     default:
                                         break;
                                 }
+
                                 
+
+                                for (int i = 0; i < finalTetrisBoard.Count(); i++)
+                                {
+
+                                    var bitmap = new BitmapImage();
+                                    bitmap.BeginInit();
+                                    bitmap.UriSource = new Uri(finalTetrisBoard[i].Value, UriKind.Relative);
+                                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                                    bitmap.EndInit();
+                                    var bottomTetrisPiece = new Image
+                                    {
+                                        Height = 200,
+                                        Width = 200,
+                                        Source = bitmap
+                                    };
+
+                                    
+                                    Canvas.SetLeft(bottomTetrisPiece, finalTetrisBoard[i].Key.X - bottomTetrisPiece.Width / 2);
+                                    Canvas.SetTop(bottomTetrisPiece, finalTetrisBoard[i].Key.Y - bottomTetrisPiece.Width / 2);
+                                    canvas.Children.Add(bottomTetrisPiece);
+
+                      
+                                }
+
 
                                 if(rightHandState == "Closed")
                                 {
@@ -205,18 +229,25 @@ namespace KinectHandTracking
 
                                     lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
                                 }
-                                currentTetrisPieceTimer += 5;
+                                currentTetrisPieceTimer += 7;
                                 //currentTetrisPieceTimer = 1.0;
+
                                 if (currentTetrisPieceTimer > 800)
                                 {
+                                    Debug.WriteLine("Before adding to list");
 
-                                    currentTetrisPieceTimer = 0;
                                     //create a  matrix/list of all fallen pieces and store their locations
+                                    Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
+                                    KeyValuePair<Point,string> finalPair = new KeyValuePair<Point, string>(finalPosition,listOfPieces[index]);
+                                    finalTetrisBoard.Add(finalPair);
+
                                     //while loop through list and draw these pieces continuously
                                     //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
                                     lastTetrisPiecePosition = 500;
+                                    currentTetrisPieceTimer = 0;
                                     Random rand = new Random();
                                     index = rand.Next(listOfPieces.Count);
+
 
                                 }
 
@@ -226,8 +257,7 @@ namespace KinectHandTracking
 
                                 tblRightHandState.Text = rightHandState;
                                 tblLeftHandState.Text = leftHandState;
-                                tblRightHandPosition.Text = "x:" + handRightX + " \ny:" + handRightY + "\n z:" + handRightZ;
-                                
+                                tblRightHandPosition.Text = "x:" + handRightX + " \ny:" + handRightY + "\n z:" + handRightZ; 
 
                             }
                         }

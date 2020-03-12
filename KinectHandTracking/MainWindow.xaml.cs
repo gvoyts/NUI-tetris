@@ -36,7 +36,7 @@ namespace KinectHandTracking
         double currentTetrisPieceTimer;
         Point piecePosition;
         //private static Timer timer;
-        List<Rectangle> shapeList = new List<Rectangle>();
+        List<Point> shapePointList = new List<Point>();
         #endregion
 
         #region Constructor
@@ -182,19 +182,20 @@ namespace KinectHandTracking
 
                                 if(rightHandState == "Closed")
                                 {
-                                    lastTetrisPiecePosition = canvas.DrawTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+                                    lastTetrisPiecePosition = canvas.DrawTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, shapePointList);
                                 }
                                 else
                                 {
-                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, shapePointList);
                                 }
                                 currentTetrisPieceTimer += 2;
                                 //currentTetrisPieceTimer = 1.0;
                                 if (currentTetrisPieceTimer > 800)
                                 {
-
                                     currentTetrisPieceTimer = 0;
                                     //create a  matrix/list of all fallen pieces and store their locations
+                                    Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
+                                    shapePointList.Add(finalPosition);
                                     //while loop through list and draw these pieces continuously
                                     //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
                                     lastTetrisPiecePosition = 500;

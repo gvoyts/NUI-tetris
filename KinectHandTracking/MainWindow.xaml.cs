@@ -37,6 +37,8 @@ namespace KinectHandTracking
         Point piecePosition;
         //private static Timer timer;
         List<Rectangle> shapeList = new List<Rectangle>();
+        List<string> listOfPieces = new List<string>();
+        int index; 
         #endregion
 
         #region Constructor
@@ -50,11 +52,22 @@ namespace KinectHandTracking
             currentTetrisPieceTimer = 0;
             //piecePosition = new Point(0, 0);
             //SetTimer();
+            listOfPieces.Add("tetrisPiece2.png");
+            listOfPieces.Add("tetrisPieceT.png");
+            listOfPieces.Add("tetrisPieceL.png");
+            listOfPieces.Add("tetrisPieceI.png");
+            listOfPieces.Add("tetrisPieceO.png");
+            //var list = new List<string>{ "one","two","three","four"};
+            //string[] listOfPieces = new string[2]{"tetrisPiece2.png", "tetrisPieceT.png"};
+            Random rand = new Random();
+            index = rand.Next(listOfPieces.Count);
         }
 
         #endregion
 
         #region Event handlers
+
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -179,17 +192,18 @@ namespace KinectHandTracking
                                     default:
                                         break;
                                 }
-
+                                
 
                                 if(rightHandState == "Closed")
                                 {
-                                    lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+
+                                    lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
                                 }
                                 else
                                 {
                                     //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
 
-                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
                                 }
                                 currentTetrisPieceTimer += 2;
                                 //currentTetrisPieceTimer = 1.0;
@@ -201,6 +215,8 @@ namespace KinectHandTracking
                                     //while loop through list and draw these pieces continuously
                                     //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
                                     lastTetrisPiecePosition = 500;
+                                    Random rand = new Random();
+                                    index = rand.Next(listOfPieces.Count);
 
                                 }
 

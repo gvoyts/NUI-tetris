@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Release\
 KinectHandTracking
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\App.xaml
 11151548125
 

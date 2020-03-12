@@ -284,7 +284,7 @@ namespace KinectHandTracking
             return (point.X - tetrisPiece.Width / 2);
         }
 
-        public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper)
+        public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName)
         {
             if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
 
@@ -294,7 +294,7 @@ namespace KinectHandTracking
 
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri("tetrisPiece2.png", UriKind.Relative);
+            bitmap.UriSource = new Uri(pieceName, UriKind.Relative);
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
             bitmap.EndInit();
             var tetrisPiece = new Image
@@ -313,14 +313,14 @@ namespace KinectHandTracking
             return (point.X - tetrisPiece.Width / 2);
         }
 
-        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
+        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName)
         {
 
             Point point = new Point(position, positionY);
 
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri("tetrisPiece2.png", UriKind.Relative);
+            bitmap.UriSource = new Uri(pieceName, UriKind.Relative);
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
             bitmap.EndInit();
             var tetrisPiece = new Image

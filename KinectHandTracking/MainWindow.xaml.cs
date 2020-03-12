@@ -203,18 +203,19 @@ namespace KinectHandTracking
                                 {
                                     lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
                                 }
-                                currentTetrisPieceTimer += 2;
+                                currentTetrisPieceTimer += 7;
 
                                 //currentTetrisPieceTimer = 1.0;
-                                if (currentTetrisPieceTimer > 800)
+                                if (currentTetrisPieceTimer > 1000)
                                 {
-                                    currentTetrisPieceTimer = 0;
                                     //create a  matrix/list of all fallen pieces and store their locations
                                     Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
                                     shapePointList.Add(finalPosition);
                                     //while loop through list and draw these pieces continuously
                                     //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
                                     lastTetrisPiecePosition = 500;
+                                    currentTetrisPieceTimer = 0;
+
 
                                 }
 

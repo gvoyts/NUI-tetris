@@ -233,7 +233,7 @@ namespace KinectHandTracking
             canvas.Children.Add(line);
         }
 
-        public static double DrawTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, List<Point> shapePointList)
+        public static double DrawTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper)
         {
             if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
 
@@ -254,25 +254,12 @@ namespace KinectHandTracking
             Canvas.SetTop(tetrisPiece, point2.Y - tetrisPiece.Width / 2);
 
             canvas.Children.Add(tetrisPiece);
-            for(int i =0; i< shapePointList.Count();i++)
-            {
-                Rectangle newTetrisPiece = new Rectangle
-                {
-                    Width = 100,
-                    Height = 100,
-                    Stroke = new SolidColorBrush(Colors.Purple),
-                    StrokeThickness = 100
-                };
-                Canvas.SetLeft(newTetrisPiece, shapePointList[i].X - tetrisPiece.Width / 2);
-                Canvas.SetTop(newTetrisPiece, shapePointList[i].Y - tetrisPiece.Width / 2);
-                canvas.Children.Add(newTetrisPiece);
-
-            }
+           
 
             return (point.X - tetrisPiece.Width / 2);
         }
 
-        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, List<Point> shapePointList)
+        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
         {
             //if (hand.TrackingState == TrackingState.NotTracked) return;
             Console.WriteLine("in stat: x: " + position);

@@ -180,15 +180,31 @@ namespace KinectHandTracking
                                         break;
                                 }
 
-                                if(rightHandState == "Closed")
+                                //hopefully this loop isnt too slow
+                                for (int i = 0; i < shapePointList.Count(); i++)
                                 {
-                                    lastTetrisPiecePosition = canvas.DrawTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, shapePointList);
+                                    Rectangle newTetrisPiece = new Rectangle
+                                    {
+                                        Width = 100,
+                                        Height = 100,
+                                        Stroke = new SolidColorBrush(Colors.Purple),
+                                        StrokeThickness = 100
+                                    };
+                                    Canvas.SetLeft(newTetrisPiece, shapePointList[i].X - newTetrisPiece.Width / 2);
+                                    Canvas.SetTop(newTetrisPiece, shapePointList[i].Y - newTetrisPiece.Width / 2);
+                                    canvas.Children.Add(newTetrisPiece);
+                                }
+
+                                if (rightHandState == "Closed")
+                                {
+                                    lastTetrisPiecePosition = canvas.DrawTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper);
                                 }
                                 else
                                 {
-                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, shapePointList);
+                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
                                 }
                                 currentTetrisPieceTimer += 2;
+
                                 //currentTetrisPieceTimer = 1.0;
                                 if (currentTetrisPieceTimer > 800)
                                 {

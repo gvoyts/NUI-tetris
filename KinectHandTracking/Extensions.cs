@@ -350,6 +350,12 @@ namespace KinectHandTracking
             return (point.X - tetrisPiece.Width / 2);
         }
 
+        public static void startGame()
+        {
+            Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
+            //if count is between 1 and 3, tell user to do bigger chomp
+        }
+
         #endregion
     }
 }

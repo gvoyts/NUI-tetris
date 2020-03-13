@@ -38,6 +38,9 @@ namespace KinectHandTracking
         Point piecePosition;
         //private static Timer timer;
         List<Rectangle> shapeList = new List<Rectangle>();
+        private BodyFrameReader bodyFrameReader = null;
+        private Body[] bodies = null;
+        private KinectBodyView kinectBodyView = null;
         #endregion
 
         #region Constructor
@@ -50,7 +53,7 @@ namespace KinectHandTracking
 
             currentTetrisPieceTimer = 0;
             this.gestureDetectorList = new List<GestureDetector>();
-            //piecePosition = new Point(0, 0);
+           
             //SetTimer();
         }
 
@@ -60,14 +63,27 @@ namespace KinectHandTracking
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("window_loaded");
             _sensor = KinectSensor.GetDefault();
 
             if (_sensor != null)
             {
+                Console.WriteLine("window_loaded 2");
+
                 _sensor.Open();
 
                 _reader = _sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Depth | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
                 _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
+
+                this.bodyFrameReader = this._sensor.BodyFrameSource.OpenReader();
+                this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
+                //piecePosition = new Point(0, 0);
+                this.kinectBodyView = new KinectBodyView(this._sensor);
+                GestureResultView result = new GestureResultView(0, false, false, 0.0f);
+                GestureDetector detector = new GestureDetector(_sensor, result);
+                this.gestureDetectorList.Add(detector);
+
+
             }
         }
 
@@ -81,6 +97,58 @@ namespace KinectHandTracking
             if (_sensor != null)
             {
                 _sensor.Close();
+            }
+        }
+
+        private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
+        {
+            bool dataReceived = false;
+
+            using (BodyFrame bodyFrame = e.FrameReference.AcquireFrame())
+            {
+                if (bodyFrame != null)
+                {
+                    if (this.bodies == null)
+                    {
+                        // creates an array of 6 bodies, which is the max number of bodies that Kinect can track simultaneously
+                        this.bodies = new Body[bodyFrame.BodyCount];
+                    }
+
+                    // The first time GetAndRefreshBodyData is called, Kinect will allocate each Body in the array.
+                    // As long as those body objects are not disposed and not set to null in the array,
+                    // those body objects will be re-used.
+                    bodyFrame.GetAndRefreshBodyData(this.bodies);
+                    dataReceived = true;
+                }
+            }
+
+            if (dataReceived)
+            {
+                // visualize the new body data
+                this.kinectBodyView.UpdateBodyFrame(this.bodies);
+
+                // we may have lost/acquired bodies, so update the corresponding gesture detectors
+                /*if (this.bodies != null)
+                {
+                    // loop through all bodies to see if any of the gesture detectors need to be updated
+                    int maxBodies = this._sensor.BodyFrameSource.BodyCount;
+                    //for (int i = 0; i < maxBodies; ++i)
+                    int i = 0;
+                    {
+                        Body body = this.bodies[i];
+                        ulong trackingId = body.TrackingId;
+
+                        // if the current body TrackingId changed, update the corresponding gesture detector with the new value
+                       // if (trackingId != this.gestureDetectorList[i].TrackingId)
+                        {
+                            this.gestureDetectorList[i].TrackingId = trackingId;
+
+                            // if the current body is tracked, unpause its detector to get VisualGestureBuilderFrameArrived events
+                            // if the current body is not tracked, pause its detector so we don't waste resources trying to get invalid gesture results
+                            this.gestureDetectorList[i].IsPaused = trackingId == 0;
+                        }
+                    }
+                }*/
             }
         }
 
@@ -208,13 +276,15 @@ namespace KinectHandTracking
 
                                 //canvas.DrawPic(100, 100, _sensor.CoordinateMapper);
 
-                                Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
+                                //Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
 
 
 
-                                GestureResultView result = new GestureResultView(0, false, false, 0.0f);
-                                GestureDetector detector = new GestureDetector(_sensor, result);
-                                this.gestureDetectorList.Add(detector);
+                                
+
+                                ContentControl contentControl = new ContentControl();
+                                contentControl.Content = this.gestureDetectorList[0].GestureResultView;
+                                canvas.Children.Add(contentControl);
 
 
                                 tblRightHandState.Text = rightHandState;

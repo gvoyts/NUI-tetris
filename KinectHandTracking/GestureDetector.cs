@@ -19,6 +19,7 @@ namespace KinectHandTracking
     {
         /// <summary> Path to the gesture database that was trained with VGB </summary>
         private readonly string gestureDatabase = @"Database\GatorChomp.gbd";
+        //private readonly string gestureDatabase = "C:\\Users\\gvoyts\\Documents\\Spring2020\\CEN4725\\Group Project\\tetris\\KinectHandTracking\\KinectHandTracking\\Database\\GatorChomp.gbd";
 
         /// <summary> Name of the discrete gesture in the database that we want to track </summary>
         private readonly string seatedGestureName = "Chomp";
@@ -48,6 +49,8 @@ namespace KinectHandTracking
                 throw new ArgumentNullException("gestureResultView");
             }
 
+            Console.WriteLine("after if exceptiosn");
+
             this.GestureResultView = gestureResultView;
 
             // create the vgb source. The associated body tracking ID will be set when a valid body frame arrives from the sensor.
@@ -58,8 +61,13 @@ namespace KinectHandTracking
             this.vgbFrameReader = this.vgbFrameSource.OpenReader();
             if (this.vgbFrameReader != null)
             {
+                Console.WriteLine("if not null vgb");
                 this.vgbFrameReader.IsPaused = true;
-                this.vgbFrameReader.FrameArrived += this.Reader_GestureFrameArrived;
+                Console.WriteLine("after pause");
+                this.vgbFrameReader.FrameArrived += Reader_GestureFrameArrived;
+            } else
+            {
+                Console.WriteLine("the vgbFrameReader is null");
             }
 
             // load the 'Seated' gesture from the gesture database
@@ -169,11 +177,13 @@ namespace KinectHandTracking
         /// <param name="e">event arguments</param>
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
+            Console.WriteLine("in reader_Gesturefram");
             VisualGestureBuilderFrameReference frameReference = e.FrameReference;
             using (VisualGestureBuilderFrame frame = frameReference.AcquireFrame())
             {
                 if (frame != null)
                 {
+                    Console.WriteLine("fram not null");
                     // get the discrete gesture results which arrived with the latest frame
                     IReadOnlyDictionary<Gesture, DiscreteGestureResult> discreteResults = frame.DiscreteGestureResults;
                     var continuousResults = frame.ContinuousGestureResults;
@@ -182,6 +192,7 @@ namespace KinectHandTracking
 
                     foreach (Gesture gesture in this.vgbFrameSource.Gestures)
                     {
+                        Console.WriteLine("foreach gesture");
                         if (discreteResults != null)
                         {
                             // we only have one gesture in this source object, but you can get multiple gestures

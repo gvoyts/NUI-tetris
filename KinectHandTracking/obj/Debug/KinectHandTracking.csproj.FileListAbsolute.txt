@@ -17,3 +17,4 @@ C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTrac
 C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.exe
 C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
 C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
+C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\bin\Debug\Microsoft.Kinect.Wpf.Controls.dll

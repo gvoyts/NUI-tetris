@@ -8,6 +8,7 @@ namespace KinectHandTracking
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Runtime.CompilerServices;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
@@ -201,6 +202,7 @@ namespace KinectHandTracking
         {
             //int count = 0;
             Console.WriteLine("detectionConf:" + detectionConfidence);
+            Debug.WriteLine("dafs");
             //Console.WriteLine("detectionConf:" + detectionConfidence);
             /*if (isGestureDetected)
             {

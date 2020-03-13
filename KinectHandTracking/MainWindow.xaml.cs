@@ -247,7 +247,7 @@ namespace KinectHandTracking
                     // the active body is not tracked, pause the detector and update the UI
                     this.gestureDetector.IsPaused = true;
                     this.gestureDetector.ClosedHandState = false;
-                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false, -1.0f);
+                    this.gestureResultView.UpdateGestureResult(false, false, -1.0f);
                 }
                 else
                 {

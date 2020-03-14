@@ -35,6 +35,8 @@ namespace KinectHandTracking
 
         private int rLeftCounter = 0;
         private int rRightCounter = 0;
+        private List<float> rLeftProgressArray = new List<float>();
+        private List<float> rRightProgressArray = new List<float>();
 
         double currentTetrisPieceTimer;
         Point piecePosition;
@@ -422,34 +424,125 @@ namespace KinectHandTracking
 
                                 //Adding rotate feature
 
-                                if (rightHandState == "Lasso")
+                                if (rightHandState != "Closed")
                                 {
                                     if (this.gestureResultView.RotateLeft)
                                     {
-                                        //Console.WriteLine("IDENTIFIED LEFT WITH PROGRESS OF" + this.RotateProgress);
-                                        if (this.gestureResultView.RotateProgress < 0.2)
+                                        rLeftProgressArray.Add(this.gestureResultView.RotateProgress);
+                                        //Console.WriteLine("Progress for LEFT: " + this.gestureResultView.RotateProgress);
+                                        //if (this.gestureResultView.RotateProgress >= 0.0 &&
+                                        //    this.gestureResultView.RotateProgress <= 0.55 && rLeftProgressArray.Count >= 0)
+                                        //{
+                                        //    rLeftProgressArray.Add(this.gestureResultView.RotateProgress);
+                                        //} else if (rLeftProgressArray.Count == 0 && this.gestureResultView.RotateProgress >= 0.40 && this.gestureResultView.RotateProgress <= 0.6)
+                                        //{
+                                        //    rLeftProgressArray.Add(this.gestureResultView.RotateProgress);
+                                        //}
+
+                                        //Console.WriteLine("CURRENT LIST:");
+                                        //foreach (float i in rLeftProgressArray)
+                                        //{
+                                        //    Console.WriteLine(i);
+                                        //}
+                                        //Console.WriteLine("END");
+                                        bool trend = true;
+                                        List<float> tempList = new List<float>();
+
+                                        for (int num = 0; num < rLeftProgressArray.Count - 1; num++)
                                         {
-                                            rLeftCounter += 1;
-                                            if (rLeftCounter >= 3)
+                                            if (rLeftProgressArray[num] < rLeftProgressArray[num + 1])
                                             {
-                                                Console.WriteLine("LEFT ROTATE");
-                                                rLeftCounter = 0;
+                                                trend = false;
+                                                tempList.Clear();
+                                            }
+                                            else
+                                            {
+                                                tempList.Add(rLeftProgressArray[num]);
+                                                if (tempList[0] >= 0.45 &&
+                                                    tempList[0] <= 0.6 &&
+                                                    tempList[tempList.Count - 1] >= 0.0 &&
+                                                    tempList[tempList.Count - 1] <= 0.25 && tempList.Count >= 8)
+                                                {
+                                                    Console.WriteLine("###############################################################LEFT#################################################");
+                                                    Console.WriteLine("TEMP LIST FOR WINNER: ");
+                                                    foreach (float i in tempList)
+                                                    {
+                                                        Console.WriteLine(i);
+                                                    }
+                                                    Console.WriteLine("END");
+                                                    tempList.Clear();
+                                                    rLeftProgressArray.Clear();
+                                                    break;
+                                                }
                                             }
                                         }
+
+                                        //if (trend && rLeftProgressArray[0] >= 0.40 && rLeftProgressArray[0] <= 0.6 &&
+                                        //    rLeftProgressArray[rLeftProgressArray.Count - 1] >= 0.0 &&
+                                        //    rLeftProgressArray[rLeftProgressArray.Count - 1] <= 0.2)
+                                        //{
+                                        //    Console.WriteLine("LEFT");
+                                        //    rLeftProgressArray.Clear();
+                                        //}
+
+                                        //Console.WriteLine("IDENTIFIED LEFT WITH PROGRESS OF" + this.RotateProgress);
+                                        //if (this.gestureResultView.RotateProgress < 0.2)
+                                        //{
+                                        //    rLeftCounter += 1;
+                                        //    if (rLeftCounter >= 3)
+                                        //    {
+                                        //        Console.WriteLine("LEFT ROTATE");
+                                        //        rLeftCounter = 0;
+                                        //    }
+                                        //}
                                     }
 
                                     if (this.gestureResultView.RotateRight)
                                     {
-                                        //Console.WriteLine("IDENTIFIED RIGHT WITH PROGRESS OF" + this.RotateProgress);
-                                        if (this.gestureResultView.RotateProgress > 0.8)
+                                        rRightProgressArray.Add(this.gestureResultView.RotateProgress);
+                                        bool trend = true;
+                                        List<float> tempList2 = new List<float>();
+
+                                        for (int num = 0; num < rRightProgressArray.Count - 1; num++)
                                         {
-                                            rRightCounter += 1;
-                                            if (rRightCounter >= 3)
+                                            if (rRightProgressArray[num] > rRightProgressArray[num + 1])
                                             {
-                                                Console.WriteLine("RIGHT ROTATE");
-                                                rRightCounter = 0;
+                                                trend = false;
+                                                tempList2.Clear();
+                                            }
+                                            else
+                                            {
+                                                tempList2.Add(rRightProgressArray[num]);
+                                                if (tempList2[0] >= 0.45 &&
+                                                    tempList2[0] <= 0.6 &&
+                                                    tempList2[tempList2.Count - 1] >= 0.75 &&
+                                                    tempList2[tempList2.Count - 1] <= 1.0 && tempList2.Count >= 8)
+                                                {
+                                                    Console.WriteLine("--------------------------------------------RIGHT----------------------------------------");
+                                                    Console.WriteLine("TEMP LIST FOR WINNER: ");
+                                                    foreach (float i in tempList2)
+                                                    {
+                                                        Console.WriteLine(i);
+                                                    }
+                                                    Console.WriteLine("END");
+                                                    tempList2.Clear();
+                                                    rRightProgressArray.Clear();
+                                                    break;
+                                                }
                                             }
                                         }
+
+                                        //Console.WriteLine("Progress for RIGHT: " + this.gestureResultView.RotateProgress);
+                                            //Console.WriteLine("IDENTIFIED RIGHT WITH PROGRESS OF" + this.RotateProgress);
+                                            //if (this.gestureResultView.RotateProgress > 0.8)
+                                            //{
+                                            //    rRightCounter += 1;
+                                            //    if (rRightCounter >= 3)
+                                            //    {
+                                            //        Console.WriteLine("RIGHT ROTATE");
+                                            //        rRightCounter = 0;
+                                            //    }
+                                            //}
                                     }
                                 }
 

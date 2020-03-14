@@ -14,9 +14,14 @@
         /// <summary> Path to the gesture database that was trained with VGB </summary>
         private readonly string gestureDatabase = @"Database\GatorChomp.gbd";
 
+        private readonly string rotateGestureDatabase = @"Database\RotateBlock.gbd";
+
         private readonly string chompDiscreteGestureName = "Chomp";
         private readonly string chompContGestureName = "ChompProgress";
 
+        private readonly string rotateLeftDiscreteGestureName = "RotateLeft";
+        private readonly string rotateRightDiscreteGestureName = "RotateRight";
+        private readonly string rotateContGestureName = "RotateProgress";
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
 
@@ -56,6 +61,11 @@
 
             // load all gestures from the gesture database
             using (var database = new VisualGestureBuilderDatabase(this.gestureDatabase))
+            {
+                this.vgbFrameSource.AddGestures(database.AvailableGestures);
+            }
+            //load all gestures from the rotate gesture database
+            using (var database = new VisualGestureBuilderDatabase(this.rotateGestureDatabase))
             {
                 this.vgbFrameSource.AddGestures(database.AvailableGestures);
             }
@@ -131,6 +141,9 @@
                         bool chomp = this.GestureResultView.Chomp;
                         float chompProgress = this.GestureResultView.ChompProgress;
 
+                        bool rotateLeft = this.GestureResultView.RotateLeft;
+                        bool rotateRight = this.GestureResultView.RotateRight;
+                        float rotateProgress = this.GestureResultView.RotateProgress;
 
                         foreach (var gesture in this.vgbFrameSource.Gestures)
                         {
@@ -145,6 +158,12 @@
                                     {
                                         //Console.WriteLine("discre chomp ges");
                                         chomp = result.Detected;
+                                    } else if (gesture.Name.Equals(this.rotateLeftDiscreteGestureName))
+                                    {
+                                        rotateLeft = result.Detected;
+                                    } else if (gesture.Name.Equals(this.rotateRightDiscreteGestureName))
+                                    {
+                                        rotateRight = result.Detected;
                                     }
                                 }
                             }
@@ -162,6 +181,15 @@
                                         chompProgress = result.Progress;
                                     }
 
+                                } else if (gesture.Name.Equals(this.rotateContGestureName) && gesture.GestureType == GestureType.Continuous)
+                                {
+                                    ContinuousGestureResult result = null;
+                                    continuousResults.TryGetValue(gesture, out result);
+
+                                    if (result != null)
+                                    {
+                                        rotateProgress = result.Progress;
+                                    }
                                 }
                             }
                         }
@@ -174,8 +202,13 @@
                             chompProgress = -1;
                         }
 
+                        if (!rotateRight && !rotateLeft)
+                        {
+                            rotateProgress = -1;
+                        }
+
                         // update the UI with the latest gesture detection results
-                        this.GestureResultView.UpdateGestureResult(true, chomp, chompProgress);
+                        this.GestureResultView.UpdateGestureResult(true, chomp, chompProgress, rotateLeft, rotateRight, rotateProgress);
                     }
                 }
             }

@@ -10,15 +10,21 @@
     {
         private bool chomp = false;
         private float chompProgress = 0.0f;
+        private bool rotateLeft = false;
+        private bool rotateRight = false;
+        private float rotateProgress = 0.0f;
 
         /// <summary> True, if the body is currently being tracked </summary>
         private bool isTracked = false;
 
-        public GestureResultView(bool isTracked, bool left, bool right, bool straight, float progress, bool chomp, float chompProgress)
+        public GestureResultView(bool isTracked, bool chomp, float chompProgress, bool rotateLeft, bool rotateRight, float rotateProgress)
         {
             this.IsTracked = isTracked;
             this.Chomp = chomp;
             this.ChompProgress = chompProgress;
+            this.RotateLeft = rotateLeft;
+            this.RotateRight = rotateRight;
+            this.RotateProgress = rotateProgress;
         }
 
         /// <summary> 
@@ -50,6 +56,32 @@
             }
         }
 
+        public bool RotateLeft
+        {
+            get
+            {
+                return this.rotateLeft;
+            }
+
+            private set
+            {
+                this.rotateLeft = value;
+            }
+        }
+
+        public bool RotateRight
+        {
+            get
+            {
+                return this.rotateRight;
+            }
+
+            private set
+            {
+                this.rotateRight = value;
+            }
+        }
+
         public float ChompProgress
         {
             get
@@ -63,7 +95,20 @@
             }
         }
 
-        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool chomp, float chompProgress)
+        public float RotateProgress
+        {
+            get
+            {
+                return this.rotateProgress;
+            }
+
+            private set
+            {
+                this.rotateProgress = value;
+            }
+        }
+
+        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool chomp, float chompProgress, bool rotateLeft, bool rotateRight, float rotateProgress)
         {
 
             this.IsTracked = isBodyTrackingIdValid;
@@ -72,11 +117,17 @@
             {
                 this.Chomp = false;
                 this.ChompProgress = -1.0f;
+                this.RotateLeft = false;
+                this.RotateRight = false;
+                this.RotateProgress = -1.0f;
             }
             else
             {
                 this.Chomp = chomp;
                 this.ChompProgress = chompProgress;
+                this.RotateLeft = rotateLeft;
+                this.RotateRight = rotateRight;
+                this.RotateProgress = rotateProgress;
             }
 
             if (this.Chomp)
@@ -92,6 +143,24 @@
                 }
 
             }
+
+            //if (this.RotateLeft)
+            //{
+            //    //Console.WriteLine("IDENTIFIED LEFT WITH PROGRESS OF" + this.RotateProgress);
+            //    if (this.RotateProgress < 0.2)
+            //    {
+            //        Console.WriteLine("LEFT ROTATE");
+            //    }
+            //}
+
+            //if (this.RotateRight)
+            //{
+            //    //Console.WriteLine("IDENTIFIED RIGHT WITH PROGRESS OF" + this.RotateProgress);
+            //    if (this.RotateProgress > 0.8)
+            //    {
+            //        Console.WriteLine("RIGHT ROTATE");
+            //    }
+            //}
 
         }
     }

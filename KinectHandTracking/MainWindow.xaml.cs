@@ -33,6 +33,9 @@ namespace KinectHandTracking
         double lastTetrisPiecePosition;
         double lastTetrisPiecePosition2;
 
+        private int rLeftCounter = 0;
+        private int rRightCounter = 0;
+
         double currentTetrisPieceTimer;
         Point piecePosition;
         //private static Timer timer;
@@ -99,7 +102,7 @@ namespace KinectHandTracking
                 //this.spaceView = new SpaceView(this.spaceGrid, this.spaceImage);
 
                 // initialize the GestureDetector object
-                this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, false, -1.0f);
+                this.gestureResultView = new GestureResultView(false, false, -1.0f, false, false, -1.0f);
                 this.gestureDetector = new GestureDetector(this._sensor, this.gestureResultView);
 
             }
@@ -247,7 +250,7 @@ namespace KinectHandTracking
                     // the active body is not tracked, pause the detector and update the UI
                     this.gestureDetector.IsPaused = true;
                     this.gestureDetector.ClosedHandState = false;
-                    this.gestureResultView.UpdateGestureResult(false, false, -1.0f);
+                    this.gestureResultView.UpdateGestureResult(false, false, -1.0f, false, false, -1.0f);
                 }
                 else
                 {
@@ -417,6 +420,38 @@ namespace KinectHandTracking
                       
                                 }
 
+                                //Adding rotate feature
+
+                                if (rightHandState == "Lasso")
+                                {
+                                    if (this.gestureResultView.RotateLeft)
+                                    {
+                                        //Console.WriteLine("IDENTIFIED LEFT WITH PROGRESS OF" + this.RotateProgress);
+                                        if (this.gestureResultView.RotateProgress < 0.2)
+                                        {
+                                            rLeftCounter += 1;
+                                            if (rLeftCounter >= 3)
+                                            {
+                                                Console.WriteLine("LEFT ROTATE");
+                                                rLeftCounter = 0;
+                                            }
+                                        }
+                                    }
+
+                                    if (this.gestureResultView.RotateRight)
+                                    {
+                                        //Console.WriteLine("IDENTIFIED RIGHT WITH PROGRESS OF" + this.RotateProgress);
+                                        if (this.gestureResultView.RotateProgress > 0.8)
+                                        {
+                                            rRightCounter += 1;
+                                            if (rRightCounter >= 3)
+                                            {
+                                                Console.WriteLine("RIGHT ROTATE");
+                                                rRightCounter = 0;
+                                            }
+                                        }
+                                    }
+                                }
 
                                 if(rightHandState == "Closed")
                                 {

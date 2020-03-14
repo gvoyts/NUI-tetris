@@ -53,3 +53,22 @@ C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking
 C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CopyComplete
 C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.exe
 C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.exe.config
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.exe
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.pdb
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.dll
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.xml
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.xml
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csprojAssemblyReference.cache
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\MainWindow.baml
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\App.baml
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\MainWindow.g.cs
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\App.g.cs
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking_MarkupCompile.cache
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.g.resources
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.Properties.Resources.resources
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.GenerateResource.cache
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CopyComplete
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.exe
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.pdb

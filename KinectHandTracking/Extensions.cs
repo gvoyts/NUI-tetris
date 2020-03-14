@@ -13,6 +13,7 @@ namespace KinectHandTracking
 {
     public static class Extensions
     {
+        public static Boolean isStartGame = false;
         #region Camera
 
         public static ImageSource ToBitmap(this ColorFrame frame)
@@ -261,56 +262,68 @@ namespace KinectHandTracking
 
         public static double DrawStationaryRectangle(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
         {
-            //if (hand.TrackingState == TrackingState.NotTracked) return;
-            Console.WriteLine("in stat: x: " + position);
-
-            Point point = new Point(position, positionY);
-            Console.WriteLine("in stationary: " + point.X + " and: " + point.Y);
-
-
-            Rectangle tetrisPiece = new Rectangle
+            if (isStartGame)
             {
-                Width = 100,
-                Height = 100,
-                Stroke = new SolidColorBrush(Colors.Purple),
-                StrokeThickness = 100
-            };
+                Console.WriteLine("in stat: x: " + position);
+       
+                Point point = new Point(position, positionY);
+                Console.WriteLine("in stationary: " + point.X + " and: " + point.Y);
 
-            Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
-            Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Width / 2);
+                Rectangle tetrisPiece = new Rectangle
+                {
+                    Width = 100,
+                    Height = 100,
+                    Stroke = new SolidColorBrush(Colors.Purple),
+                    StrokeThickness = 100
+                };
 
-            canvas.Children.Add(tetrisPiece);
+                Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
+                Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Width / 2);
 
-            return (point.X - tetrisPiece.Width / 2);
+                canvas.Children.Add(tetrisPiece);
+
+                return (point.X - tetrisPiece.Width / 2);
+            }
+            else
+            {
+                return 0.0;
+            }
         }
 
         public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName)
         {
-            if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
-
-            Point point = hand.Scale(mapper);
-            Point point2 = new Point(0, positionY);
-
-
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(pieceName, UriKind.Relative);
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.EndInit();
-            var tetrisPiece = new Image
+            if (isStartGame)
             {
-                Height = 200,
-                Width = 200,
-                Source = bitmap
-            };
+                if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
 
-            Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
-            Canvas.SetTop(tetrisPiece, point2.Y - tetrisPiece.Width / 2);
-
-            canvas.Children.Add(tetrisPiece);
+                Point point = hand.Scale(mapper);
+                Point point2 = new Point(0, positionY);
 
 
-            return (point.X - tetrisPiece.Width / 2);
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(pieceName, UriKind.Relative);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                var tetrisPiece = new Image
+                {
+                    Height = 200,
+                    Width = 200,
+                    Source = bitmap
+                };
+
+                Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
+                Canvas.SetTop(tetrisPiece, point2.Y - tetrisPiece.Width / 2);
+
+                canvas.Children.Add(tetrisPiece);
+
+
+                return (point.X - tetrisPiece.Width / 2);
+            }
+            else
+            {
+                return 0.0;
+            }
         }
 
         public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName)

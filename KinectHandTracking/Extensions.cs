@@ -400,6 +400,7 @@ namespace KinectHandTracking
 
         public static void startGame()
         {
+            //gameMessage.Text = "The Game has begun.";
             isStartGame = true;
             Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
             //if count is between 1 and 3, tell user to do bigger chomp

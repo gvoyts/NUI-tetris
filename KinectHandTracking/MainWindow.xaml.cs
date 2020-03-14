@@ -557,8 +557,8 @@ namespace KinectHandTracking
 
                                     lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
                                 }
+
                                 currentTetrisPieceTimer += 7;
-                                //currentTetrisPieceTimer = 1.0;
 
                                 if (currentTetrisPieceTimer > 800)
                                 {
@@ -580,9 +580,8 @@ namespace KinectHandTracking
                                 }
 
                                 //canvas.DrawPic(100, 100, _sensor.CoordinateMapper);
-
+                                
                                 //Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
-
                                // tblRightHandState.Text = rightHandState;
                                // tblLeftHandState.Text = leftHandState;
                                // tblRightHandPosition.Text = "x:" + handRightX + " \ny:" + handRightY + "\n z:" + handRightZ; 

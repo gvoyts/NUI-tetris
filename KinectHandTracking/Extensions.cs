@@ -286,6 +286,15 @@ namespace KinectHandTracking
             }
             else
             {
+                Rectangle startScreen = new Rectangle
+                {
+                    Width = 3000,
+                    Height = 1500,
+                    Stroke = new SolidColorBrush(Colors.Purple),
+                    StrokeThickness = 1000,
+                    Opacity = 0.5
+                };
+                canvas.Children.Add(startScreen);
                 return 0.0;
             }
         }
@@ -322,13 +331,24 @@ namespace KinectHandTracking
             }
             else
             {
+                Rectangle startScreen = new Rectangle
+                {
+                    Width = 3000,
+                    Height = 1500,
+                    Stroke = new SolidColorBrush(Colors.Purple),
+                    StrokeThickness = 1000,
+                    Opacity = 0.5
+                };
+                canvas.Children.Add(startScreen);
+
                 return 0.0;
             }
         }
 
         public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName)
         {
-
+            if (isStartGame) {
+           
             Point point = new Point(position, positionY);
 
             var bitmap = new BitmapImage();
@@ -361,10 +381,26 @@ namespace KinectHandTracking
             canvas.Children.Add(img);*/
 
             return (point.X - tetrisPiece.Width / 2);
+            }
+            else
+            {
+                Rectangle startScreen = new Rectangle
+                {
+                    Width = 3000,
+                    Height = 1500,
+                    Stroke = new SolidColorBrush(Colors.Purple),
+                    StrokeThickness = 1000,
+                    Opacity = 0.5
+                };
+                canvas.Children.Add(startScreen);
+
+                return 0.0;
+            }
         }
 
         public static void startGame()
         {
+            isStartGame = true;
             Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
             //if count is between 1 and 3, tell user to do bigger chomp
         }

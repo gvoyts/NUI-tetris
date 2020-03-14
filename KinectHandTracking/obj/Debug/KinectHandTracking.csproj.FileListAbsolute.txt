@@ -72,3 +72,4 @@ C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking
 \\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CopyComplete
 \\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.exe
 \\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.dll

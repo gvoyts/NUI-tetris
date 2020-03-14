@@ -583,9 +583,9 @@ namespace KinectHandTracking
 
                                 //Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
 
-                                tblRightHandState.Text = rightHandState;
-                                tblLeftHandState.Text = leftHandState;
-                                tblRightHandPosition.Text = "x:" + handRightX + " \ny:" + handRightY + "\n z:" + handRightZ; 
+                               // tblRightHandState.Text = rightHandState;
+                               // tblLeftHandState.Text = leftHandState;
+                               // tblRightHandPosition.Text = "x:" + handRightX + " \ny:" + handRightY + "\n z:" + handRightZ; 
 
                             }
                         }

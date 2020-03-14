@@ -9,6 +9,10 @@
                 <Canvas Name="canvas" />
             </Grid>
         </Viewbox>
+      
+      <TextBlock Text ="Welcome to Tetris! Give us a Gator Chomp to begin the game!" />
+      
+      <!--
         <Grid Style="{StaticResource ContainerStyle}">
             <StackPanel Margin="20">
                 <StackPanel>
@@ -25,5 +29,6 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+        -->
     </Grid>
 </Window>

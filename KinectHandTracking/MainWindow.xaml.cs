@@ -560,6 +560,7 @@ namespace KinectHandTracking
 
                                 currentTetrisPieceTimer += 7;
 
+
                                 if (currentTetrisPieceTimer > 800)
                                 {
                                     Debug.WriteLine("Before adding to list");
@@ -576,6 +577,7 @@ namespace KinectHandTracking
                                     Random rand = new Random();
                                     index = rand.Next(listOfPieces.Count);
 
+                                    gameMessage.Text = "Looks like you got it!";
 
                                 }
 

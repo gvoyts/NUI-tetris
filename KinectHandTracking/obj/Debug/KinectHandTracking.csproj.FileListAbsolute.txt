@@ -16,3 +16,40 @@ C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTrac
 C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CopyComplete
 C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.exe
 C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.exe.config
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.exe
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.pdb
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.dll
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.xml
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csprojAssemblyReference.cache
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\MainWindow.baml
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\App.baml
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\MainWindow.g.cs
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\App.g.cs
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking_MarkupCompile.cache
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.g.resources
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.Properties.Resources.resources
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.GenerateResource.cache
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CopyComplete
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.exe
+C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
+C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris\KinectHandTracking\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.exe.config
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.exe
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\bin\Debug\KinectHandTracking.pdb
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.dll
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.xml
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csprojAssemblyReference.cache
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\MainWindow.baml
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\App.baml
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\MainWindow.g.cs
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\App.g.cs
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking_MarkupCompile.cache
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.g.resources
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.Properties.Resources.resources
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.GenerateResource.cache
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CoreCompileInputs.cache
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CopyComplete
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.exe
+C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.pdb

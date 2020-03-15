@@ -38,6 +38,14 @@ namespace KinectHandTracking
         private List<float> rLeftProgressArray = new List<float>();
         private List<float> rRightProgressArray = new List<float>();
 
+        private int rotateRightAnomalyCount = 0;
+        private int rotateLeftAnomalyCount = 0;
+
+        private bool rotateLeftBool = false;
+        private bool rotateRightBool = false;
+
+
+
         double currentTetrisPieceTimer;
         Point piecePosition;
         //private static Timer timer;
@@ -452,8 +460,14 @@ namespace KinectHandTracking
                                         {
                                             if (rLeftProgressArray[num] < rLeftProgressArray[num + 1])
                                             {
-                                                trend = false;
-                                                tempList.Clear();
+                                                if (rotateLeftAnomalyCount > 3)
+                                                {
+                                                    trend = false;
+                                                    tempList.Clear();
+                                                    rotateLeftAnomalyCount = 0;
+                                                }
+                                                rotateLeftAnomalyCount++;
+
                                             }
                                             else
                                             {
@@ -461,15 +475,16 @@ namespace KinectHandTracking
                                                 if (tempList[0] >= 0.45 &&
                                                     tempList[0] <= 0.6 &&
                                                     tempList[tempList.Count - 1] >= 0.0 &&
-                                                    tempList[tempList.Count - 1] <= 0.25 && tempList.Count >= 8)
+                                                    tempList[tempList.Count - 1] <= 0.28 && tempList.Count >= 8)
                                                 {
                                                     Console.WriteLine("###############################################################LEFT#################################################");
-                                                    Console.WriteLine("TEMP LIST FOR WINNER: ");
+                                                    /*Console.WriteLine("TEMP LIST FOR WINNER: ");
                                                     foreach (float i in tempList)
                                                     {
                                                         Console.WriteLine(i);
                                                     }
-                                                    Console.WriteLine("END");
+                                                    Console.WriteLine("END");*/
+                                                    rotateLeftBool = true;
                                                     tempList.Clear();
                                                     rLeftProgressArray.Clear();
                                                     break;
@@ -500,6 +515,9 @@ namespace KinectHandTracking
                                     if (this.gestureResultView.RotateRight)
                                     {
                                         rRightProgressArray.Add(this.gestureResultView.RotateProgress);
+
+                                        //Console.WriteLine("Progress for RIGHT: " + this.gestureResultView.RotateProgress);
+
                                         bool trend = true;
                                         List<float> tempList2 = new List<float>();
 
@@ -507,8 +525,13 @@ namespace KinectHandTracking
                                         {
                                             if (rRightProgressArray[num] > rRightProgressArray[num + 1])
                                             {
-                                                trend = false;
-                                                tempList2.Clear();
+                                                if (rotateRightAnomalyCount > 3)
+                                                {
+                                                    trend = false;
+                                                    tempList2.Clear();
+                                                    rotateRightAnomalyCount = 0;
+                                                }
+                                                rotateRightAnomalyCount++;
                                             }
                                             else
                                             {
@@ -519,12 +542,13 @@ namespace KinectHandTracking
                                                     tempList2[tempList2.Count - 1] <= 1.0 && tempList2.Count >= 8)
                                                 {
                                                     Console.WriteLine("--------------------------------------------RIGHT----------------------------------------");
-                                                    Console.WriteLine("TEMP LIST FOR WINNER: ");
+                                                    /*Console.WriteLine("TEMP LIST FOR WINNER: ");
                                                     foreach (float i in tempList2)
                                                     {
                                                         Console.WriteLine(i);
                                                     }
-                                                    Console.WriteLine("END");
+                                                    Console.WriteLine("END");*/
+                                                    rotateRightBool = true;
                                                     tempList2.Clear();
                                                     rRightProgressArray.Clear();
                                                     break;
@@ -550,12 +574,15 @@ namespace KinectHandTracking
                                 {
 
                                     lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
+                                    
                                 }
                                 else
                                 {
                                     //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
 
-                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
+                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotateLeftBool, rotateRightBool);
+                                    rotateLeftBool = false;
+                                    rotateRightBool = false;
                                 }
                                 currentTetrisPieceTimer += 7;
                                 //currentTetrisPieceTimer = 1.0;

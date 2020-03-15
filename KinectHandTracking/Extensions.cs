@@ -1,19 +1,30 @@
 ﻿using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Resources;
 using System.Windows.Shapes;
+using Image = System.Windows.Controls.Image;
+using Point = System.Windows.Point;
+using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace KinectHandTracking
 {
+
     public static class Extensions
     {
         #region Camera
+
+        ///private Bitmap bitmap1;
+        public static ObservableCollection<BitmapSource> Bitmaps { get; set; }
+        public static TransformedBitmap bitmap = new TransformedBitmap();
 
         public static ImageSource ToBitmap(this ColorFrame frame)
         {
@@ -313,22 +324,82 @@ namespace KinectHandTracking
             return (point.X - tetrisPiece.Width / 2);
         }
 
-        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName)
+        public static void setBitmap(string pieceName)
         {
+            var bit = new BitmapImage();
+            bit.BeginInit();
+            bit.UriSource = new Uri(pieceName, UriKind.Relative);
+            bit.CacheOption = BitmapCacheOption.OnLoad;
+            bit.EndInit();
 
+            bitmap.Source = bit;
+        }
+
+        public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName, bool rotateLeftBool, bool rotateRightBool)
+        {
+            //pieceName = "tetrispieces.png";
+            setBitmap(pieceName);
             Point point = new Point(position, positionY);
+            TransformedBitmap tb = new TransformedBitmap();
 
-            var bitmap = new BitmapImage();
+            /*var bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(pieceName, UriKind.Relative);
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.EndInit();
+            bitmap.EndInit();*/
+
+
+            //Bitmaps[0].CreateOptions = BitmapCreateOptions.None;
+            //Uri u = new Uri(pieceName, UriKind.Relative);
+            //Uri u = new Uri(pieceName, UriKind.Relative);
+            //StreamResourceInfo resourceInfo = Application.GetResourceStream(u);
+            /*BitmapImage img = new BitmapImage();
+            //img.SetSource(resourceInfo.Stream);
+            img.BeginInit();
+            img.UriSource = u;
+            img.CacheOption = BitmapCacheOption.OnLoad;
+            //img.CreateOptions = BitmapCreateOptions.None;
+            img.EndInit();
+
+            Bitmaps.Add(img);*/
+
             var tetrisPiece = new Image
             {
                 Height = 200,
                 Width = 200,
-                Source = bitmap
+                Source = bitmap.Source
             };
+
+
+            if (rotateLeftBool)
+            {
+               // Bitmaps.Add(new TransformedBitmap(Bitmaps[0], new RotateTransform(90)));
+
+                Console.WriteLine("rotate left bool is true");
+                tb.BeginInit();
+                tb.Source = bitmap.Source;
+                RotateTransform transform = new RotateTransform(90);
+                tb.Transform = transform;
+                tb.EndInit();
+                bitmap = tb;
+
+                //tetrisPiece.Source = tb;
+            }
+
+            if (rotateRightBool)
+            {
+                Console.WriteLine("rotate right bool is true");
+                //Bitmaps.Add(new TransformedBitmap(Bitmaps[0], new RotateTransform(270)));
+
+
+                tb.BeginInit();
+                tb.Source = bitmap.Source;
+                RotateTransform transform = new RotateTransform(270);
+                tb.Transform = transform;
+                tb.EndInit();
+                bitmap = tb;
+                //tetrisPiece.Source = tb;
+            }
 
             Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
             Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Height / 2);
@@ -356,6 +427,17 @@ namespace KinectHandTracking
             //if count is between 1 and 3, tell user to do bigger chomp
         }
 
+        public static void rotatePieceLeft(System.Object sender, System.EventArgs e)
+        {
+            Console.WriteLine("rotating piece LEFT");
+            //if (bitmap1 != null)
+            {
+
+            }
+        }
+
+
         #endregion
+    
     }
 }

@@ -32,7 +32,7 @@ namespace KinectHandTracking
         IList<Body> _bodies;
         double lastTetrisPiecePosition;
         double lastTetrisPiecePosition2;
-        public static Boolean isStartGame;
+        static Boolean isStartGame;
 
         private int rLeftCounter = 0;
         private int rRightCounter = 0;
@@ -120,7 +120,7 @@ namespace KinectHandTracking
         {
             //gameMessage.Text = "The Game has begun.";
             isStartGame = true;
-            Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
+            //Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
             //if count is between 1 and 3, tell user to do bigger chomp
         }
   
@@ -573,7 +573,7 @@ namespace KinectHandTracking
 
                                     if (currentTetrisPieceTimer > 800)
                                     {
-                                        Debug.WriteLine("Before adding to list");
+                                        //Debug.WriteLine("Before adding to list");
 
                                         //create a  matrix/list of all fallen pieces and store their locations
                                         Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);

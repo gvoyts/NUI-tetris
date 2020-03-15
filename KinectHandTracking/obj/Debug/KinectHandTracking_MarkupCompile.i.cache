@@ -1,3 +1,25 @@
+<<<<<<< HEAD
+﻿KinectHandTracking
+
+
+winexe
+C#
+.cs
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\
+KinectHandTracking
+none
+false
+DEBUG;TRACE
+\\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\App.xaml
+11151548125
+
+10222705598
+141998064385
+MainWindow.xaml;
+
+False
+
+=======
 ﻿KinectHandTracking
 
 
@@ -18,3 +40,4 @@ MainWindow.xaml;
 
 False
 
+>>>>>>> master

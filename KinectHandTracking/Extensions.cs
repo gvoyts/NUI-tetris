@@ -16,8 +16,12 @@ using Point = System.Windows.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace KinectHandTracking
+<<<<<<< HEAD
+{
+=======
 {
 
+>>>>>>> master
     public static class Extensions
     {
         #region Camera
@@ -272,29 +276,59 @@ namespace KinectHandTracking
 
         public static double DrawStationaryRectangle(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
         {
-            //if (hand.TrackingState == TrackingState.NotTracked) return;
-            Console.WriteLine("in stat: x: " + position);
+           
+                Console.WriteLine("in stat: x: " + position);
+       
+                Point point = new Point(position, positionY);
+                Console.WriteLine("in stationary: " + point.X + " and: " + point.Y);
 
-            Point point = new Point(position, positionY);
-            Console.WriteLine("in stationary: " + point.X + " and: " + point.Y);
+                Rectangle tetrisPiece = new Rectangle
+                {
+                    Width = 100,
+                    Height = 100,
+                    Stroke = new SolidColorBrush(Colors.Purple),
+                    StrokeThickness = 100
+                };
 
+                Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
+                Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Width / 2);
 
-            Rectangle tetrisPiece = new Rectangle
-            {
-                Width = 100,
-                Height = 100,
-                Stroke = new SolidColorBrush(Colors.Purple),
-                StrokeThickness = 100
-            };
+                canvas.Children.Add(tetrisPiece);
 
-            Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
-            Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Width / 2);
-
-            canvas.Children.Add(tetrisPiece);
-
-            return (point.X - tetrisPiece.Width / 2);
+                return (point.X - tetrisPiece.Width / 2);
+      
         }
 
+<<<<<<< HEAD
+        public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName)
+        {
+                if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
+
+                Point point = hand.Scale(mapper);
+                Point point2 = new Point(0, positionY);
+
+
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(pieceName, UriKind.Relative);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                var tetrisPiece = new Image
+                {
+                    Height = 200,
+                    Width = 200,
+                    Source = bitmap
+                };
+
+                Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
+                Canvas.SetTop(tetrisPiece, point2.Y - tetrisPiece.Width / 2);
+
+                canvas.Children.Add(tetrisPiece);
+
+
+                return (point.X - tetrisPiece.Width / 2);
+            
+=======
         /*public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName)
         {
             if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
@@ -322,10 +356,14 @@ namespace KinectHandTracking
 
 
             return (point.X - tetrisPiece.Width / 2);
+>>>>>>> master
         }
 
         public static void setBitmap(string pieceName)
         {
+<<<<<<< HEAD
+           
+=======
             var bit = new BitmapImage();
             bit.BeginInit();
             bit.UriSource = new Uri(pieceName, UriKind.Relative);
@@ -339,6 +377,7 @@ namespace KinectHandTracking
         {
             //pieceName = "tetrispieces.png";
             setBitmap(pieceName);
+>>>>>>> master
             Point point = new Point(position, positionY);
             TransformedBitmap tb = new TransformedBitmap();
 
@@ -426,9 +465,13 @@ namespace KinectHandTracking
             canvas.Children.Add(img);*//*
 
             return (point.X - tetrisPiece.Width / 2);
+            
         }
 */
 
+<<<<<<< HEAD
+      
+=======
         public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName, int rotationPosition)
         {
             if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
@@ -614,6 +657,7 @@ namespace KinectHandTracking
             Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
             //if count is between 1 and 3, tell user to do bigger chomp
         }
+>>>>>>> master
 
         public static void rotatePieceLeft(System.Object sender, System.EventArgs e)
         {

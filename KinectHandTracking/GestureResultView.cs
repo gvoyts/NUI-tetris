@@ -139,7 +139,7 @@
                     //this.ImageSource = this.seatedImage;
                     //Console.WriteLine("DETECT CONF OVER 0.65) ");
                     // count++;
-                    Extensions.startGame();
+                    MainWindow.startGame();
                 }
 
             }

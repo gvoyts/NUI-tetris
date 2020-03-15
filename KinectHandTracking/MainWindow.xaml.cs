@@ -32,6 +32,7 @@ namespace KinectHandTracking
         IList<Body> _bodies;
         double lastTetrisPiecePosition;
         double lastTetrisPiecePosition2;
+        Boolean isStartGame;
 
         private int rLeftCounter = 0;
         private int rRightCounter = 0;
@@ -73,7 +74,7 @@ namespace KinectHandTracking
             InitializeComponent();
             lastTetrisPiecePosition = 0.0;
             lastTetrisPiecePosition2 = 0.0;
-
+            isStartGame = false;
             currentTetrisPieceTimer = 0;
             //piecePosition = new Point(0, 0);
             //SetTimer();
@@ -115,7 +116,15 @@ namespace KinectHandTracking
         #region Event handlers
 
 
-
+        public static void startGame()
+        {
+            //gameMessage.Text = "The Game has begun.";
+            isStartGame = true;
+            gameMessage.Text = "Starting Game";
+            Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
+            //if count is between 1 and 3, tell user to do bigger chomp
+        }
+  
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             /*_sensor = KinectSensor.GetDefault();
@@ -545,40 +554,51 @@ namespace KinectHandTracking
                                             //}
                                     }
                                 }
-
-                                if(rightHandState == "Closed")
+                                if (isStartGame)
                                 {
+                                    if (rightHandState == "Closed")
+                                    {
 
-                                    lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
+                                        lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
+                                    }
+                                    else
+                                    {
+                                        //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+
+                                        lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
+                                    }
+
+                                    currentTetrisPieceTimer += 7;
+
+                                    if (currentTetrisPieceTimer > 800)
+                                    {
+                                        Debug.WriteLine("Before adding to list");
+
+                                        //create a  matrix/list of all fallen pieces and store their locations
+                                        Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
+                                        KeyValuePair<Point, string> finalPair = new KeyValuePair<Point, string>(finalPosition, listOfPieces[index]);
+                                        finalTetrisBoard.Add(finalPair);
+
+                                        //while loop through list and draw these pieces continuously
+                                        //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
+                                        lastTetrisPiecePosition = 500;
+                                        currentTetrisPieceTimer = 0;
+                                        Random rand = new Random();
+                                        index = rand.Next(listOfPieces.Count);
+                                    }
                                 }
                                 else
                                 {
-                                    //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
-
-                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
+                                    Rectangle startScreen = new Rectangle
+                                    {
+                                        Width = 3000,
+                                        Height = 1500,
+                                        Stroke = new SolidColorBrush(Colors.Purple),
+                                        StrokeThickness = 1000,
+                                        Opacity = 0.5
+                                    };
+                                    canvas.Children.Add(startScreen);
                                 }
-
-                                currentTetrisPieceTimer += 7;
-
-                                if (currentTetrisPieceTimer > 800)
-                                {
-                                    Debug.WriteLine("Before adding to list");
-
-                                    //create a  matrix/list of all fallen pieces and store their locations
-                                    Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
-                                    KeyValuePair<Point,string> finalPair = new KeyValuePair<Point, string>(finalPosition,listOfPieces[index]);
-                                    finalTetrisBoard.Add(finalPair);
-
-                                    //while loop through list and draw these pieces continuously
-                                    //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
-                                    lastTetrisPiecePosition = 500;
-                                    currentTetrisPieceTimer = 0;
-                                    Random rand = new Random();
-                                    index = rand.Next(listOfPieces.Count);
-
-
-                                }
-
                                 //canvas.DrawPic(100, 100, _sensor.CoordinateMapper);
                                 
                                 //Console.WriteLine("curr timer: " + currentTetrisPieceTimer);

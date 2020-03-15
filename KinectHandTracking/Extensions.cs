@@ -13,7 +13,6 @@ namespace KinectHandTracking
 {
     public static class Extensions
     {
-        public static Boolean isStartGame = false;
         #region Camera
 
         public static ImageSource ToBitmap(this ColorFrame frame)
@@ -262,8 +261,7 @@ namespace KinectHandTracking
 
         public static double DrawStationaryRectangle(this Canvas canvas, double position, double positionY, CoordinateMapper mapper)
         {
-            if (isStartGame)
-            {
+           
                 Console.WriteLine("in stat: x: " + position);
        
                 Point point = new Point(position, positionY);
@@ -283,26 +281,11 @@ namespace KinectHandTracking
                 canvas.Children.Add(tetrisPiece);
 
                 return (point.X - tetrisPiece.Width / 2);
-            }
-            else
-            {
-                Rectangle startScreen = new Rectangle
-                {
-                    Width = 3000,
-                    Height = 1500,
-                    Stroke = new SolidColorBrush(Colors.Purple),
-                    StrokeThickness = 1000,
-                    Opacity = 0.5
-                };
-                canvas.Children.Add(startScreen);
-                return 0.0;
-            }
+      
         }
 
         public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName)
         {
-            if (isStartGame)
-            {
                 if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
 
                 Point point = hand.Scale(mapper);
@@ -328,26 +311,11 @@ namespace KinectHandTracking
 
 
                 return (point.X - tetrisPiece.Width / 2);
-            }
-            else
-            {
-                Rectangle startScreen = new Rectangle
-                {
-                    Width = 3000,
-                    Height = 1500,
-                    Stroke = new SolidColorBrush(Colors.Purple),
-                    StrokeThickness = 1000,
-                    Opacity = 0.5
-                };
-                canvas.Children.Add(startScreen);
-
-                return 0.0;
-            }
+            
         }
 
         public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName)
         {
-            if (isStartGame) {
            
             Point point = new Point(position, positionY);
 
@@ -381,30 +349,10 @@ namespace KinectHandTracking
             canvas.Children.Add(img);*/
 
             return (point.X - tetrisPiece.Width / 2);
-            }
-            else
-            {
-                Rectangle startScreen = new Rectangle
-                {
-                    Width = 3000,
-                    Height = 1500,
-                    Stroke = new SolidColorBrush(Colors.Purple),
-                    StrokeThickness = 1000,
-                    Opacity = 0.5
-                };
-                canvas.Children.Add(startScreen);
-
-                return 0.0;
-            }
+            
         }
 
-        public static void startGame()
-        {
-            //gameMessage.Text = "The Game has begun.";
-            isStartGame = true;
-            Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
-            //if count is between 1 and 3, tell user to do bigger chomp
-        }
+      
 
         #endregion
     }

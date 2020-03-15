@@ -32,7 +32,7 @@ namespace KinectHandTracking
         IList<Body> _bodies;
         double lastTetrisPiecePosition;
         double lastTetrisPiecePosition2;
-        Boolean isStartGame;
+        public static Boolean isStartGame;
 
         private int rLeftCounter = 0;
         private int rRightCounter = 0;
@@ -120,7 +120,6 @@ namespace KinectHandTracking
         {
             //gameMessage.Text = "The Game has begun.";
             isStartGame = true;
-            gameMessage.Text = "Starting Game";
             Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
             //if count is between 1 and 3, tell user to do bigger chomp
         }
@@ -556,6 +555,8 @@ namespace KinectHandTracking
                                 }
                                 if (isStartGame)
                                 {
+                                    gameMessage.Text = "Good Luck Playing Game!";
+
                                     if (rightHandState == "Closed")
                                     {
 

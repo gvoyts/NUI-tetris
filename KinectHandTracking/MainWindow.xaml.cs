@@ -72,8 +72,8 @@ namespace KinectHandTracking
         public MainWindow()
         {
             InitializeComponent();
-            lastTetrisPiecePosition = 0.0;
-            lastTetrisPiecePosition2 = 0.0;
+            lastTetrisPiecePosition = 400.0;
+            lastTetrisPiecePosition2 = 400.0;
             isStartGame = false;
             currentTetrisPieceTimer = 0;
             //piecePosition = new Point(0, 0);

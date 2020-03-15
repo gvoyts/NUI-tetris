@@ -44,6 +44,8 @@ namespace KinectHandTracking
         private bool rotateLeftBool = false;
         private bool rotateRightBool = false;
 
+        private int rotationPosition = 0;
+
 
 
         double currentTetrisPieceTimer;
@@ -484,7 +486,15 @@ namespace KinectHandTracking
                                                         Console.WriteLine(i);
                                                     }
                                                     Console.WriteLine("END");*/
-                                                    rotateLeftBool = true;
+                                                    //rotateLeftBool = true;
+                                                    if (rotationPosition == 0)
+                                                    {
+                                                        rotationPosition = 3;
+                                                    }
+                                                    else
+                                                    {
+                                                        rotationPosition--;
+                                                    }
                                                     tempList.Clear();
                                                     rLeftProgressArray.Clear();
                                                     break;
@@ -548,7 +558,17 @@ namespace KinectHandTracking
                                                         Console.WriteLine(i);
                                                     }
                                                     Console.WriteLine("END");*/
-                                                    rotateRightBool = true;
+                                                   // rotateRightBool = true;
+                                                    if (rotationPosition == 3)
+                                                    {
+                                                        rotationPosition = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        rotationPosition++;
+                                                    }
+                                                    
+
                                                     tempList2.Clear();
                                                     rRightProgressArray.Clear();
                                                     break;
@@ -573,18 +593,18 @@ namespace KinectHandTracking
                                 if(rightHandState == "Closed")
                                 {
 
-                                    lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index]);
+                                    lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
                                     
                                 }
                                 else
                                 {
                                     //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
 
-                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotateLeftBool, rotateRightBool);
+                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
                                     rotateLeftBool = false;
                                     rotateRightBool = false;
                                 }
-                                currentTetrisPieceTimer += 7;
+                                currentTetrisPieceTimer += 3; //7
                                 //currentTetrisPieceTimer = 1.0;
 
                                 if (currentTetrisPieceTimer > 800)
@@ -602,6 +622,7 @@ namespace KinectHandTracking
                                     currentTetrisPieceTimer = 0;
                                     Random rand = new Random();
                                     index = rand.Next(listOfPieces.Count);
+                                    rotationPosition = 0;
 
 
                                 }

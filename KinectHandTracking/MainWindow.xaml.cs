@@ -367,7 +367,7 @@ namespace KinectHandTracking
                                 canvas.DrawThumb(thumbRight, _sensor.CoordinateMapper);
                                 canvas.DrawThumb(thumbLeft, _sensor.CoordinateMapper);
 
-                                
+
 
                                 // Find the hand states
                                 string rightHandState = "-";
@@ -415,7 +415,7 @@ namespace KinectHandTracking
                                         break;
                                 }
 
-                                
+                                canvas.DrawDroppedPieces();
 
                                 for (int i = 0; i < finalTetrisBoard.Count(); i++)
                                 {
@@ -432,12 +432,12 @@ namespace KinectHandTracking
                                         Source = bitmap
                                     };
 
-                                    
+
                                     Canvas.SetLeft(bottomTetrisPiece, finalTetrisBoard[i].Key.X - bottomTetrisPiece.Width / 2);
                                     Canvas.SetTop(bottomTetrisPiece, finalTetrisBoard[i].Key.Y - bottomTetrisPiece.Width / 2);
                                     canvas.Children.Add(bottomTetrisPiece);
 
-                      
+
                                 }
 
                                 //Adding rotate feature
@@ -566,7 +566,7 @@ namespace KinectHandTracking
                                                         Console.WriteLine(i);
                                                     }
                                                     Console.WriteLine("END");*/
-                                                   // rotateRightBool = true;
+                                                    // rotateRightBool = true;
                                                     if (rotationPosition == 3)
                                                     {
                                                         rotationPosition = 0;
@@ -575,7 +575,7 @@ namespace KinectHandTracking
                                                     {
                                                         rotationPosition++;
                                                     }
-                                                    
+
 
                                                     tempList2.Clear();
                                                     rRightProgressArray.Clear();
@@ -585,20 +585,19 @@ namespace KinectHandTracking
                                         }
 
                                         //Console.WriteLine("Progress for RIGHT: " + this.gestureResultView.RotateProgress);
-                                            //Console.WriteLine("IDENTIFIED RIGHT WITH PROGRESS OF" + this.RotateProgress);
-                                            //if (this.gestureResultView.RotateProgress > 0.8)
-                                            //{
-                                            //    rRightCounter += 1;
-                                            //    if (rRightCounter >= 3)
-                                            //    {
-                                            //        Console.WriteLine("RIGHT ROTATE");
-                                            //        rRightCounter = 0;
-                                            //    }
-                                            //}
+                                        //Console.WriteLine("IDENTIFIED RIGHT WITH PROGRESS OF" + this.RotateProgress);
+                                        //if (this.gestureResultView.RotateProgress > 0.8)
+                                        //{
+                                        //    rRightCounter += 1;
+                                        //    if (rRightCounter >= 3)
+                                        //    {
+                                        //        Console.WriteLine("RIGHT ROTATE");
+                                        //        rRightCounter = 0;
+                                        //    }
+                                        //}
                                     }
                                 }
-<<<<<<< HEAD
-                                if (isStartGame)
+                                /*if (isStartGame)
                                 {
                                     gameMessage.Text = "Good Luck Playing Game!";
 
@@ -644,51 +643,66 @@ namespace KinectHandTracking
                                         Opacity = 0.5
                                     };
                                     canvas.Children.Add(startScreen);
-=======
+                                }*/
 
-                                if(rightHandState == "Closed")
+                                if (isStartGame)
                                 {
+                                    gameMessage.Text = "Good Luck Playing Game!";
+                                    if(rightHandState == "Closed")
+                                    {
 
-                                    lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
+                                        lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
                                     
+                                    }
+                                    else
+                                    {
+                                        //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
+
+                                        lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
+                                        rotateLeftBool = false;
+                                        rotateRightBool = false;
+                                    }
+                                    currentTetrisPieceTimer += 3; //7
+                                    //currentTetrisPieceTimer = 1.0;
+
+                                    if (currentTetrisPieceTimer > 800)
+                                    {
+                                        Debug.WriteLine("Before adding to list");
+
+                                        //create a  matrix/list of all fallen pieces and store their locations
+                                        Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
+                                        KeyValuePair<Point,string> finalPair = new KeyValuePair<Point, string>(finalPosition,listOfPieces[index]);
+                                        finalTetrisBoard.Add(finalPair);
+
+                                        //while loop through list and draw these pieces continuously
+                                        //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
+                                        lastTetrisPiecePosition = 500;
+                                        currentTetrisPieceTimer = 0;
+                                        Random rand = new Random();
+                                        index = rand.Next(listOfPieces.Count);
+                                        rotationPosition = 0;
+
+
+                                    }
                                 }
                                 else
                                 {
-                                    //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
-
-                                    lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
-                                    rotateLeftBool = false;
-                                    rotateRightBool = false;
-                                }
-                                currentTetrisPieceTimer += 3; //7
-                                //currentTetrisPieceTimer = 1.0;
-
-                                if (currentTetrisPieceTimer > 800)
-                                {
-                                    Debug.WriteLine("Before adding to list");
-
-                                    //create a  matrix/list of all fallen pieces and store their locations
-                                    Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
-                                    KeyValuePair<Point,string> finalPair = new KeyValuePair<Point, string>(finalPosition,listOfPieces[index]);
-                                    finalTetrisBoard.Add(finalPair);
-
-                                    //while loop through list and draw these pieces continuously
-                                    //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);
-                                    lastTetrisPiecePosition = 500;
-                                    currentTetrisPieceTimer = 0;
-                                    Random rand = new Random();
-                                    index = rand.Next(listOfPieces.Count);
-                                    rotationPosition = 0;
-
-
->>>>>>> master
+                                    Rectangle startScreen = new Rectangle
+                                    {
+                                        Width = 3000,
+                                        Height = 1500,
+                                        Stroke = new SolidColorBrush(Colors.Purple),
+                                        StrokeThickness = 1000,
+                                        Opacity = 0.5
+                                    };
+                                    canvas.Children.Add(startScreen);
                                 }
                                 //canvas.DrawPic(100, 100, _sensor.CoordinateMapper);
-                                
+
                                 //Console.WriteLine("curr timer: " + currentTetrisPieceTimer);
-                               // tblRightHandState.Text = rightHandState;
-                               // tblLeftHandState.Text = leftHandState;
-                               // tblRightHandPosition.Text = "x:" + handRightX + " \ny:" + handRightY + "\n z:" + handRightZ; 
+                                // tblRightHandState.Text = rightHandState;
+                                // tblLeftHandState.Text = leftHandState;
+                                // tblRightHandPosition.Text = "x:" + handRightX + " \ny:" + handRightY + "\n z:" + handRightZ; 
 
                             }
                         }

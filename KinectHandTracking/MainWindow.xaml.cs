@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Media;
 
 namespace KinectHandTracking
 {
@@ -34,6 +35,7 @@ namespace KinectHandTracking
         double lastTetrisPiecePosition2;
         static Boolean isStartGame;
 
+
         private int rLeftCounter = 0;
         private int rRightCounter = 0;
         private List<float> rLeftProgressArray = new List<float>();
@@ -49,12 +51,14 @@ namespace KinectHandTracking
 
 
 
+
         double currentTetrisPieceTimer;
         Point piecePosition;
         //private static Timer timer;
         List<Point> shapePointList = new List<Point>();
         List<string> listOfPieces = new List<string>();
-        List<KeyValuePair<Point, string>> finalTetrisBoard = new List<KeyValuePair<Point, string>>();
+        //List<KeyValuePair<Point, string>> finalTetrisBoard = new List<KeyValuePair<Point, string>>();
+        public List<DroppedPiece> finalTetrisBoard = new List<DroppedPiece>();
         int index;
         private BodyFrameReader bodyFrameReader = null;
         private Body[] bodies = null;
@@ -130,10 +134,15 @@ namespace KinectHandTracking
         {
             //gameMessage.Text = "The Game has begun.";
             isStartGame = true;
+            SoundPlayer simpleSound = new SoundPlayer(@"C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris-gameboy-02.wav");
+
+            simpleSound.PlayLooping();
+
+
             //Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
             //if count is between 1 and 3, tell user to do bigger chomp
         }
-  
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             /*_sensor = KinectSensor.GetDefault();
@@ -320,7 +329,8 @@ namespace KinectHandTracking
     void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
 
-            
+
+
             var reference = e.FrameReference.AcquireFrame();
 
             // Color
@@ -349,6 +359,7 @@ namespace KinectHandTracking
                         {
                             if (body.IsTracked)
                             {
+
                                 // Find the joints
                                 Joint handRight = body.Joints[JointType.HandRight];
                                 Joint thumbRight = body.Joints[JointType.ThumbRight];
@@ -415,9 +426,9 @@ namespace KinectHandTracking
                                         break;
                                 }
 
-                                canvas.DrawDroppedPieces();
+                                canvas.DrawDroppedPieces(finalTetrisBoard);
 
-                                for (int i = 0; i < finalTetrisBoard.Count(); i++)
+                                /*for (int i = 0; i < finalTetrisBoard.Count(); i++)
                                 {
 
                                     var bitmap = new BitmapImage();
@@ -438,7 +449,7 @@ namespace KinectHandTracking
                                     canvas.Children.Add(bottomTetrisPiece);
 
 
-                                }
+                                }*/
 
                                 //Adding rotate feature
 
@@ -447,7 +458,7 @@ namespace KinectHandTracking
                                     if (this.gestureResultView.RotateLeft)
                                     {
                                         rLeftProgressArray.Add(this.gestureResultView.RotateProgress);
-                                        //Console.WriteLine("Progress for LEFT: " + this.gestureResultView.RotateProgress);
+                                        Console.WriteLine("Progress for LEFT: " + this.gestureResultView.RotateProgress);
                                         //if (this.gestureResultView.RotateProgress >= 0.0 &&
                                         //    this.gestureResultView.RotateProgress <= 0.55 && rLeftProgressArray.Count >= 0)
                                         //{
@@ -482,10 +493,20 @@ namespace KinectHandTracking
                                             else
                                             {
                                                 tempList.Add(rLeftProgressArray[num]);
+                                                //bool midWay = false;
+                                                bool midWay = false;
+                                                foreach (float i in tempList)
+                                                {
+                                                   if (i >= 0.2 && i <= 0.3)
+                                                    {
+                                                        midWay = true;
+                                                    }
+                                                }
                                                 if (tempList[0] >= 0.45 &&
                                                     tempList[0] <= 0.6 &&
                                                     tempList[tempList.Count - 1] >= 0.0 &&
-                                                    tempList[tempList.Count - 1] <= 0.28 && tempList.Count >= 8)
+                                                    tempList[tempList.Count - 1] <= 0.28 && tempList.Count >= 8 &&
+                                                    midWay)
                                                 {
                                                     Console.WriteLine("###############################################################LEFT#################################################");
                                                     /*Console.WriteLine("TEMP LIST FOR WINNER: ");
@@ -534,7 +555,7 @@ namespace KinectHandTracking
                                     {
                                         rRightProgressArray.Add(this.gestureResultView.RotateProgress);
 
-                                        //Console.WriteLine("Progress for RIGHT: " + this.gestureResultView.RotateProgress);
+                                        Console.WriteLine("Progress for RIGHT: " + this.gestureResultView.RotateProgress);
 
                                         bool trend = true;
                                         List<float> tempList2 = new List<float>();
@@ -554,10 +575,20 @@ namespace KinectHandTracking
                                             else
                                             {
                                                 tempList2.Add(rRightProgressArray[num]);
+                                                //bool midWay = false;
+                                               bool midWay = true;
+                                                foreach (float i in tempList2)
+                                                {
+                                                  //  if (i >= 0.7 && i <= 0.8)
+                                                    {
+                                                        midWay = true;
+                                                    }
+                                                }
                                                 if (tempList2[0] >= 0.45 &&
                                                     tempList2[0] <= 0.6 &&
                                                     tempList2[tempList2.Count - 1] >= 0.75 &&
-                                                    tempList2[tempList2.Count - 1] <= 1.0 && tempList2.Count >= 8)
+                                                    tempList2[tempList2.Count - 1] <= 1.0 && tempList2.Count >= 8 &&
+                                                    midWay)
                                                 {
                                                     Console.WriteLine("--------------------------------------------RIGHT----------------------------------------");
                                                     /*Console.WriteLine("TEMP LIST FOR WINNER: ");
@@ -647,8 +678,35 @@ namespace KinectHandTracking
 
                                 if (isStartGame)
                                 {
+
                                     gameMessage.Text = "Good Luck Playing Game!";
-                                    if(rightHandState == "Closed")
+
+                                    Rectangle borderLeft = new Rectangle
+                                    {
+                                        Width = 200,
+                                        Height = 1500,
+                                        Stroke = new SolidColorBrush(Colors.Blue),
+                                        StrokeThickness = 1000,
+                                        Opacity = 0.75
+                                    };
+                                    Canvas.SetLeft(borderLeft, 0);
+                                    Canvas.SetTop(borderLeft, 0);
+                                    canvas.Children.Add(borderLeft);
+
+                                    Rectangle borderRight = new Rectangle
+                                    {
+                                        Width = 600,
+                                        Height = 1500,
+                                        Stroke = new SolidColorBrush(Colors.Blue),
+                                        StrokeThickness = 1000,
+                                        Opacity = 0.75
+                                    };
+                                    Canvas.SetLeft(borderRight, 1600);
+                                    Canvas.SetTop(borderRight, 0);
+                                    canvas.Children.Add(borderRight);
+
+
+                                    if (rightHandState == "Closed")
                                     {
 
                                         lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
@@ -662,17 +720,21 @@ namespace KinectHandTracking
                                         rotateLeftBool = false;
                                         rotateRightBool = false;
                                     }
-                                    currentTetrisPieceTimer += 3; //7
+                                    currentTetrisPieceTimer += 7; //7 //2
                                     //currentTetrisPieceTimer = 1.0;
 
-                                    if (currentTetrisPieceTimer > 800)
+                                    if (currentTetrisPieceTimer > 950)
                                     {
                                         Debug.WriteLine("Before adding to list");
 
                                         //create a  matrix/list of all fallen pieces and store their locations
                                         Point finalPosition = new Point(lastTetrisPiecePosition2, currentTetrisPieceTimer);
-                                        KeyValuePair<Point,string> finalPair = new KeyValuePair<Point, string>(finalPosition,listOfPieces[index]);
-                                        finalTetrisBoard.Add(finalPair);
+                                        //KeyValuePair<Point,string> finalPair = new KeyValuePair<Point, string>(finalPosition,listOfPieces[index]);
+                                        DroppedPiece droppedPiece = new DroppedPiece(finalPosition, listOfPieces[index], rotationPosition);
+                                        //finalTetrisBoard.Add(finalPair);
+                                        finalTetrisBoard.Add(droppedPiece);
+
+
 
                                         //while loop through list and draw these pieces continuously
                                         //canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition2, 800, _sensor.CoordinateMapper);

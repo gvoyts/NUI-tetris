@@ -3,14 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Kinect 2 hand tracking" Height="800" Width="1200" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
-        <Viewbox>
-            <Grid Width="1920" Height="1080">
-                <Image Name="camera" />
-                <Canvas Name="canvas" />
-            </Grid>
-        </Viewbox>
 
-      <TextBlock Name ="gameMessage" TextAlignment ="Center" FontSize ="30" Text ="Welcome to Tetris! Give us a Gator Chomp to begin!" FontWeight= "Bold" >
+        <Border Background="Blue" BorderThickness="4,4,4,4">
+            <Viewbox>
+                <Grid Width="1920" Height="1080">
+                    <Image Name="camera" />
+                    <Canvas Name="canvas" />
+                </Grid>
+            </Viewbox>
+        </Border>
+
+        <TextBlock Name ="gameMessage" TextAlignment ="Center" FontSize ="30" Text ="Welcome to Tetris! Give us a Gator Chomp to begin!" FontWeight= "Bold" >
       </TextBlock>
         
       

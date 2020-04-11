@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Media;
 
 namespace KinectHandTracking
 {
@@ -34,6 +35,7 @@ namespace KinectHandTracking
         double lastTetrisPiecePosition2;
         static Boolean isStartGame;
 
+
         private int rLeftCounter = 0;
         private int rRightCounter = 0;
         private List<float> rLeftProgressArray = new List<float>();
@@ -46,6 +48,7 @@ namespace KinectHandTracking
         private bool rotateRightBool = false;
 
         private int rotationPosition = 0;
+
 
 
 
@@ -131,10 +134,15 @@ namespace KinectHandTracking
         {
             //gameMessage.Text = "The Game has begun.";
             isStartGame = true;
+            SoundPlayer simpleSound = new SoundPlayer(@"C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris-gameboy-02.wav");
+
+            simpleSound.PlayLooping();
+
+
             //Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
             //if count is between 1 and 3, tell user to do bigger chomp
         }
-  
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             /*_sensor = KinectSensor.GetDefault();
@@ -321,7 +329,8 @@ namespace KinectHandTracking
     void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
 
-            
+
+
             var reference = e.FrameReference.AcquireFrame();
 
             // Color
@@ -350,6 +359,7 @@ namespace KinectHandTracking
                         {
                             if (body.IsTracked)
                             {
+
                                 // Find the joints
                                 Joint handRight = body.Joints[JointType.HandRight];
                                 Joint thumbRight = body.Joints[JointType.ThumbRight];
@@ -668,8 +678,35 @@ namespace KinectHandTracking
 
                                 if (isStartGame)
                                 {
+
                                     gameMessage.Text = "Good Luck Playing Game!";
-                                    if(rightHandState == "Closed")
+
+                                    Rectangle borderLeft = new Rectangle
+                                    {
+                                        Width = 200,
+                                        Height = 1500,
+                                        Stroke = new SolidColorBrush(Colors.Blue),
+                                        StrokeThickness = 1000,
+                                        Opacity = 0.75
+                                    };
+                                    Canvas.SetLeft(borderLeft, 0);
+                                    Canvas.SetTop(borderLeft, 0);
+                                    canvas.Children.Add(borderLeft);
+
+                                    Rectangle borderRight = new Rectangle
+                                    {
+                                        Width = 600,
+                                        Height = 1500,
+                                        Stroke = new SolidColorBrush(Colors.Blue),
+                                        StrokeThickness = 1000,
+                                        Opacity = 0.75
+                                    };
+                                    Canvas.SetLeft(borderRight, 1600);
+                                    Canvas.SetTop(borderRight, 0);
+                                    canvas.Children.Add(borderRight);
+
+
+                                    if (rightHandState == "Closed")
                                     {
 
                                         lastTetrisPiecePosition = canvas.DrawMovingTetrisPiece(handRight, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
@@ -683,7 +720,7 @@ namespace KinectHandTracking
                                         rotateLeftBool = false;
                                         rotateRightBool = false;
                                     }
-                                    currentTetrisPieceTimer += 2; //7
+                                    currentTetrisPieceTimer += 7; //7 //2
                                     //currentTetrisPieceTimer = 1.0;
 
                                     if (currentTetrisPieceTimer > 950)

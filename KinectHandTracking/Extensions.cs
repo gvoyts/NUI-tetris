@@ -310,8 +310,8 @@ namespace KinectHandTracking
             bitmap.EndInit();
             /*var tetrisPiece = new Image
             {
-                Height = 300,
-                Width = 300,
+                Height = 200,
+                Width = 200,
                 Source = bitmap
             };*/
             if (rotationPosition == 1)
@@ -324,8 +324,8 @@ namespace KinectHandTracking
                 tb.EndInit();
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = tb
                 };
             }
@@ -339,8 +339,8 @@ namespace KinectHandTracking
                 tb.EndInit();
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = tb
                 };
             }
@@ -354,8 +354,8 @@ namespace KinectHandTracking
                 tb.EndInit();
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = tb
                 };
             }
@@ -364,8 +364,8 @@ namespace KinectHandTracking
 
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = bitmap
                 };
 
@@ -378,7 +378,7 @@ namespace KinectHandTracking
             canvas.Children.Add(tetrisPiece);
 
 
-            return (point.X - tetrisPiece.Width / 2);
+            return (point.X);
         }
 
         public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName, int rotationPosition)
@@ -407,8 +407,8 @@ namespace KinectHandTracking
                 tb.EndInit();
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = tb
                 };
             }
@@ -422,8 +422,8 @@ namespace KinectHandTracking
                 tb.EndInit();
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = tb
                 };
             }
@@ -437,8 +437,8 @@ namespace KinectHandTracking
                 tb.EndInit();
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = tb
                 };
             }
@@ -447,8 +447,8 @@ namespace KinectHandTracking
 
                 tetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = bitmap
                 };
 
@@ -462,7 +462,7 @@ namespace KinectHandTracking
 
             canvas.Children.Add(tetrisPiece);
 
-            return (point.X - tetrisPiece.Width / 2);
+            return (point.X);
         }
 
         public static void DrawDroppedPieces(this Canvas canvas, List<DroppedPiece> finalTetrisBoard)
@@ -477,8 +477,8 @@ namespace KinectHandTracking
                 bitmap.EndInit();
                 var bottomTetrisPiece = new Image
                 {
-                    Height = 300,
-                    Width = 300,
+                    Height = 200,
+                    Width = 200,
                     Source = bitmap
                 };*/
 
@@ -503,8 +503,8 @@ namespace KinectHandTracking
                     tb.EndInit();
                     tetrisPiece = new Image
                     {
-                        Height = 300,
-                        Width = 300,
+                        Height = 200,
+                        Width = 200,
                         Source = tb
                     };
                 }
@@ -518,8 +518,8 @@ namespace KinectHandTracking
                     tb.EndInit();
                     tetrisPiece = new Image
                     {
-                        Height = 300,
-                        Width = 300,
+                        Height = 200,
+                        Width = 200,
                         Source = tb
                     };
                 }
@@ -533,8 +533,8 @@ namespace KinectHandTracking
                     tb.EndInit();
                     tetrisPiece = new Image
                     {
-                        Height = 300,
-                        Width = 300,
+                        Height = 200,
+                        Width = 200,
                         Source = tb
                     };
                 }
@@ -543,8 +543,8 @@ namespace KinectHandTracking
 
                     tetrisPiece = new Image
                     {
-                        Height = 300,
-                        Width = 300,
+                        Height = 200,
+                        Width = 200,
                         Source = bitmap
                     };
 

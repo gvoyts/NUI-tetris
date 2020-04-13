@@ -40,12 +40,17 @@ namespace KinectHandTracking
         private int rRightCounter = 0;
         private List<float> rLeftProgressArray = new List<float>();
         private List<float> rRightProgressArray = new List<float>();
+        private List<float> dropBlockProgressArray = new List<float>();
 
         private int rotateRightAnomalyCount = 0;
         private int rotateLeftAnomalyCount = 0;
+        private int dropBlockAnomalyCount = 0;
+
+        
 
         private bool rotateLeftBool = false;
         private bool rotateRightBool = false;
+        private bool dropBlockBool = false;
 
         private int rotationPosition = 0;
 
@@ -119,7 +124,7 @@ namespace KinectHandTracking
                 //this.spaceView = new SpaceView(this.spaceGrid, this.spaceImage);
 
                 // initialize the GestureDetector object
-                this.gestureResultView = new GestureResultView(false, false, -1.0f, false, false, -1.0f);
+                this.gestureResultView = new GestureResultView(false, false, -1.0f, false, false, -1.0f, false, -1.0f);
                 this.gestureDetector = new GestureDetector(this._sensor, this.gestureResultView);
 
             }
@@ -136,7 +141,7 @@ namespace KinectHandTracking
             isStartGame = true;
             SoundPlayer simpleSound = new SoundPlayer(@"C:\Users\gvoyts\Documents\Spring2020\CEN4725\Group Project\tetris-gameboy-02.wav");
 
-            simpleSound.PlayLooping();
+            //UNDO: music //simpleSound.PlayLooping();
 
 
             //Console.WriteLine("!!!!!!!!!!!!GAME IS STARTING!!!!!!!!!!!!!!!!!!!!");
@@ -279,7 +284,7 @@ namespace KinectHandTracking
                     // the active body is not tracked, pause the detector and update the UI
                     this.gestureDetector.IsPaused = true;
                     this.gestureDetector.ClosedHandState = false;
-                    this.gestureResultView.UpdateGestureResult(false, false, -1.0f, false, false, -1.0f);
+                    this.gestureResultView.UpdateGestureResult(false, false, -1.0f, false, false, -1.0f, false, -1.0f);
                 }
                 else
                 {
@@ -497,7 +502,7 @@ namespace KinectHandTracking
                                                 bool midWay = false;
                                                 foreach (float i in tempList)
                                                 {
-                                                   if (i >= 0.2 && i <= 0.3)
+                                                    if (i >= 0.2 && i <= 0.3)
                                                     {
                                                         midWay = true;
                                                     }
@@ -576,10 +581,10 @@ namespace KinectHandTracking
                                             {
                                                 tempList2.Add(rRightProgressArray[num]);
                                                 //bool midWay = false;
-                                               bool midWay = true;
+                                                bool midWay = true;
                                                 foreach (float i in tempList2)
                                                 {
-                                                  //  if (i >= 0.7 && i <= 0.8)
+                                                    //  if (i >= 0.7 && i <= 0.8)
                                                     {
                                                         midWay = true;
                                                     }
@@ -627,6 +632,62 @@ namespace KinectHandTracking
                                         //    }
                                         //}
                                     }
+                                }
+                                else if (rightHandState == "Closed")
+                                {
+                                    if (this.gestureResultView.DropBlock)
+                                    {
+                                        Console.WriteLine("DROP BLOCK HERE: " + this.gestureResultView.DropBlockProgress);
+                                        dropBlockProgressArray.Add(this.gestureResultView.DropBlockProgress);
+
+
+                                        bool trend = true;
+                                        List<float> tempList3 = new List<float>();
+
+                                        for (int num = 0; num < dropBlockProgressArray.Count - 1; num++)
+                                        {
+                                            if (dropBlockProgressArray[num] > dropBlockProgressArray[num + 1])
+                                            {
+                                                if (dropBlockAnomalyCount > 6)
+                                                {
+                                                    trend = false;
+                                                    tempList3.Clear();
+                                                    dropBlockAnomalyCount = 0;
+                                                }
+                                                dropBlockAnomalyCount++;
+                                            }
+                                            else
+                                            {
+                                                tempList3.Add(dropBlockProgressArray[num]);
+                                                //bool midWay = false;
+                                                bool midWay = true;
+                                                foreach (float i in tempList3)
+                                                {
+                                                    //  if (i >= 0.7 && i <= 0.8)
+                                                    {
+                                                        midWay = true;
+                                                    }
+                                                }
+                                                if (tempList3[0] >= 0.0 &&
+                                                    tempList3[0] <= 0.35 &&
+                                                    tempList3[tempList3.Count - 1] >= 0.55 &&
+                                                    tempList3[tempList3.Count - 1] <= 1.0 && tempList3.Count >= 5 &&
+                                                    midWay)
+                                                {
+                                                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+                                                    dropBlockBool = true;
+
+
+                                                    tempList3.Clear();
+                                                    dropBlockProgressArray.Clear();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+
                                 }
                                 /*if (isStartGame)
                                 {
@@ -681,7 +742,8 @@ namespace KinectHandTracking
 
                                     gameMessage.Text = "Good Luck Playing Game!";
 
-                                    Rectangle borderLeft = new Rectangle
+                                    //FIXME: borders
+                                    /*Rectangle borderLeft = new Rectangle
                                     {
                                         Width = 200,
                                         Height = 1500,
@@ -703,7 +765,7 @@ namespace KinectHandTracking
                                     };
                                     Canvas.SetLeft(borderRight, 1600);
                                     Canvas.SetTop(borderRight, 0);
-                                    canvas.Children.Add(borderRight);
+                                    canvas.Children.Add(borderRight);*/
 
 
                                     if (rightHandState == "Closed")
@@ -715,12 +777,18 @@ namespace KinectHandTracking
                                     else
                                     {
                                         //canvas.DrawPic(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper);
-
+                                        if (dropBlockBool)
+                                        {
+                                            currentTetrisPieceTimer += 15;
+                                        }
+                                        
+                                   
                                         lastTetrisPiecePosition2 = canvas.DrawStationaryTetrisPiece(lastTetrisPiecePosition, currentTetrisPieceTimer, _sensor.CoordinateMapper, listOfPieces[index], rotationPosition);
-                                        rotateLeftBool = false;
+                                        
+                                         rotateLeftBool = false;
                                         rotateRightBool = false;
                                     }
-                                    currentTetrisPieceTimer += 7; //7 //2
+                                    currentTetrisPieceTimer += 4; //7 //2
                                     //currentTetrisPieceTimer = 1.0;
 
                                     if (currentTetrisPieceTimer > 950)
@@ -743,6 +811,7 @@ namespace KinectHandTracking
                                         Random rand = new Random();
                                         index = rand.Next(listOfPieces.Count);
                                         rotationPosition = 0;
+                                        dropBlockBool = false;
 
 
                                     }

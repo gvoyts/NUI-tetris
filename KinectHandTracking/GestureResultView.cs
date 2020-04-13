@@ -13,11 +13,13 @@
         private bool rotateLeft = false;
         private bool rotateRight = false;
         private float rotateProgress = 0.0f;
+        private bool dropBlock = false;
+        private float dropBlockProgress = 0.0f;
 
         /// <summary> True, if the body is currently being tracked </summary>
         private bool isTracked = false;
 
-        public GestureResultView(bool isTracked, bool chomp, float chompProgress, bool rotateLeft, bool rotateRight, float rotateProgress)
+        public GestureResultView(bool isTracked, bool chomp, float chompProgress, bool rotateLeft, bool rotateRight, float rotateProgress, bool dropBlock, float dropBlockProgress)
         {
             this.IsTracked = isTracked;
             this.Chomp = chomp;
@@ -25,6 +27,8 @@
             this.RotateLeft = rotateLeft;
             this.RotateRight = rotateRight;
             this.RotateProgress = rotateProgress;
+            this.DropBlock = dropBlock;
+            this.DropBlockProgress = dropBlockProgress;
         }
 
         /// <summary> 
@@ -82,6 +86,19 @@
             }
         }
 
+        public bool DropBlock
+        {
+            get
+            {
+                return this.dropBlock;
+            }
+
+            private set
+            {
+                this.dropBlock = value;
+            }
+        }
+
         public float ChompProgress
         {
             get
@@ -108,7 +125,20 @@
             }
         }
 
-        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool chomp, float chompProgress, bool rotateLeft, bool rotateRight, float rotateProgress)
+        public float DropBlockProgress
+        {
+            get
+            {
+                return this.dropBlockProgress;
+            }
+
+            private set
+            {
+                this.dropBlockProgress = value;
+            }
+        }
+
+        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool chomp, float chompProgress, bool rotateLeft, bool rotateRight, float rotateProgress, bool dropBlock, float dropBlockProgress)
         {
 
             this.IsTracked = isBodyTrackingIdValid;
@@ -120,6 +150,8 @@
                 this.RotateLeft = false;
                 this.RotateRight = false;
                 this.RotateProgress = -1.0f;
+                this.DropBlock = false;
+                this.DropBlockProgress = -1.0f;
             }
             else
             {
@@ -128,6 +160,8 @@
                 this.RotateLeft = rotateLeft;
                 this.RotateRight = rotateRight;
                 this.RotateProgress = rotateProgress;
+                this.DropBlock = dropBlock;
+                this.DropBlockProgress = dropBlockProgress;
             }
 
             if (this.Chomp)

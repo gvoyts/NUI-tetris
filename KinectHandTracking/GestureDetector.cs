@@ -16,12 +16,19 @@
 
         private readonly string rotateGestureDatabase = @"Database\RotateBlock.gbd";
 
+        private readonly string dropBlockDatabase = @"Database\DropBlock.gbd";
+
         private readonly string chompDiscreteGestureName = "Chomp";
         private readonly string chompContGestureName = "ChompProgress";
 
         private readonly string rotateLeftDiscreteGestureName = "RotateLeft";
         private readonly string rotateRightDiscreteGestureName = "RotateRight";
         private readonly string rotateContGestureName = "RotateProgress";
+
+
+        private readonly string dropBlockDiscreteGestureName = "DropBlock";
+        private readonly string dropBlockContGestureName = "DropBlockProgress";
+
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
 
@@ -66,6 +73,11 @@
             }
             //load all gestures from the rotate gesture database
             using (var database = new VisualGestureBuilderDatabase(this.rotateGestureDatabase))
+            {
+                this.vgbFrameSource.AddGestures(database.AvailableGestures);
+            }
+
+            using (var database = new VisualGestureBuilderDatabase(this.dropBlockDatabase))
             {
                 this.vgbFrameSource.AddGestures(database.AvailableGestures);
             }
@@ -145,6 +157,9 @@
                         bool rotateRight = this.GestureResultView.RotateRight;
                         float rotateProgress = this.GestureResultView.RotateProgress;
 
+                        bool dropBlock = this.GestureResultView.DropBlock;
+                        float dropBlockProgress = this.GestureResultView.DropBlockProgress;
+
                         foreach (var gesture in this.vgbFrameSource.Gestures)
                         {
                             if (gesture.GestureType == GestureType.Discrete)
@@ -164,6 +179,9 @@
                                     } else if (gesture.Name.Equals(this.rotateRightDiscreteGestureName))
                                     {
                                         rotateRight = result.Detected;
+                                    } else if (gesture.Name.Equals(this.dropBlockDiscreteGestureName))
+                                    {
+                                        dropBlock = result.Detected;
                                     }
                                 }
                             }
@@ -190,6 +208,15 @@
                                     {
                                         rotateProgress = result.Progress;
                                     }
+                                } else if (gesture.Name.Equals(this.dropBlockContGestureName) && gesture.GestureType == GestureType.Continuous)
+                                {
+                                    ContinuousGestureResult result = null;
+                                    continuousResults.TryGetValue(gesture, out result);
+
+                                    if (result != null)
+                                    {
+                                        dropBlockProgress = result.Progress;
+                                    }
                                 }
                             }
                         }
@@ -207,8 +234,13 @@
                             rotateProgress = -1;
                         }
 
+                        if (!dropBlock)
+                        {
+                            dropBlockProgress = -1;
+                        }
+
                         // update the UI with the latest gesture detection results
-                        this.GestureResultView.UpdateGestureResult(true, chomp, chompProgress, rotateLeft, rotateRight, rotateProgress);
+                        this.GestureResultView.UpdateGestureResult(true, chomp, chompProgress, rotateLeft, rotateRight, rotateProgress, dropBlock, dropBlockProgress);
                     }
                 }
             }

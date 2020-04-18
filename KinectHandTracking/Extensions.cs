@@ -265,7 +265,6 @@ namespace KinectHandTracking
 
             canvas.Children.Add(tetrisPiece);
 
-
             return (point.X - tetrisPiece.Width / 2);
         }
 
@@ -291,7 +290,6 @@ namespace KinectHandTracking
                 canvas.Children.Add(tetrisPiece);
 
                 return (point.X - tetrisPiece.Width / 2);
-      
         }
 
         public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName, int rotationPosition)
@@ -308,12 +306,7 @@ namespace KinectHandTracking
             bitmap.UriSource = new Uri(pieceName, UriKind.Relative);
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
             bitmap.EndInit();
-            /*var tetrisPiece = new Image
-            {
-                Height = 200,
-                Width = 200,
-                Source = bitmap
-            };*/
+
             if (rotationPosition == 1)
             {
                 TransformedBitmap tb = new TransformedBitmap();
@@ -361,22 +354,17 @@ namespace KinectHandTracking
             }
             else
             {
-
                 tetrisPiece = new Image
                 {
                     Height = 200,
                     Width = 200,
                     Source = bitmap
                 };
-
-
             }
-
             Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
             Canvas.SetTop(tetrisPiece, point2.Y - tetrisPiece.Width / 2);
 
             canvas.Children.Add(tetrisPiece);
-
 
             return (point.X);
         }
@@ -454,9 +442,6 @@ namespace KinectHandTracking
 
 
             }
-
-
-
             Canvas.SetLeft(tetrisPiece, point.X - tetrisPiece.Width / 2);
             Canvas.SetTop(tetrisPiece, point.Y - tetrisPiece.Height / 2);
 
@@ -540,29 +525,19 @@ namespace KinectHandTracking
                 }
                 else
                 {
-
                     tetrisPiece = new Image
                     {
                         Height = 200,
                         Width = 200,
                         Source = bitmap
                     };
-
-
                 }
-
 
                 Canvas.SetLeft(tetrisPiece, finalTetrisBoard[i].FinalPosition.X - tetrisPiece.Width / 2);
                 Canvas.SetTop(tetrisPiece, finalTetrisBoard[i].FinalPosition.Y - tetrisPiece.Width / 2);
                 canvas.Children.Add(tetrisPiece);
-
-
             }
         }
-
-
-
         #endregion
-
     }
 }

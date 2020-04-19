@@ -6,6 +6,18 @@
     using System.Windows.Media;
     //using Microsoft.Samples.Kinect.ContinuousGestureBasics.Common;
 
+    /*
+    The purpose of the GestureResultView class is to set the gesture 
+    result values that are read in from GestureDetector.
+
+    @author     Sydney Achinger
+    @author     Anushri Marar
+    @author     Ganna Voytseshko
+    @author     John Woodman
+    @version    1.1
+    @since      2020-04-17
+    */
+
     public sealed class GestureResultView 
     {
         private bool chomp = false;
@@ -138,6 +150,13 @@
             }
         }
 
+        /*
+        When the body is recognized and being tracked, this 
+        method sets the gesture result values for the discrete 
+        chomp, rotate left, rotate right, and drop gestures, as 
+        well as the progress values for the continuous chomp, 
+        rotate, and drop gestures.
+        */
         public void UpdateGestureResult(bool isBodyTrackingIdValid, bool chomp, float chompProgress, bool rotateLeft, bool rotateRight, float rotateProgress, bool dropBlock, float dropBlockProgress)
         {
 

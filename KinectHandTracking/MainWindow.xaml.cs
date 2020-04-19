@@ -20,9 +20,19 @@ using System.Media;
 
 namespace KinectHandTracking
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /*
+    The purpose of the MainWindow class is defining most of the 
+    logic for the game, determing when to start, when to rotate 
+    and move pieces, and when to finalize pieces once they've 
+    reached the bottom of the game boundary.
+
+    @author     Sydney Achinger
+    @author     Anushri Marar
+    @author     Ganna Voytseshko
+    @author     John Woodman
+    @version    1.1
+    @since      2020-04-17
+    */
     public partial class MainWindow : Window
     {
 
@@ -123,7 +133,12 @@ namespace KinectHandTracking
 
         #region Event handlers
 
-
+        /*
+        This method sets the start game value to true,
+        allowing for tetris pieces and the border/boundary
+        for the game to be drawn. This method also starts 
+        the in-game music.
+        */
         public static void startGame()
         {
             //gameMessage.Text = "The Game has begun.";
@@ -263,7 +278,22 @@ namespace KinectHandTracking
             }
         }
 
-    void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
+        /*
+        This method reads in values for hand states to determine 
+        if the body being tracked has their hand open, closed, or 
+        lassoed. Using the hand state values as well as the discrete 
+        and continuos values from the GestureResultView, logic is 
+        made determine if the tetries piece will be rotated right, 
+        rotated left, or dropped down at an increased speed. 
+        Threshold values are set for the progress values to be the
+        most accurate to what the tracked body is gesturing. A 
+        trend is calculated for the progress values to detect if a
+        gesture has been made. Once a gesture has been detected, 
+        the DrawStationaryTetrisPiece or the DrawMovingTetrisPiece
+        is passed in those results and the piece is updated on the
+        game screen.
+         */
+        void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
             var reference = e.FrameReference.AcquireFrame();
 

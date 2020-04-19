@@ -17,6 +17,17 @@ using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace KinectHandTracking
 {
+    /*
+    The purpose of the Extensions class is to define the methods for 
+    creating the tetris pieces that are displayed in the game screen.
+
+    @author     Sydney Achinger
+    @author     Anushri Marar
+    @author     Ganna Voytseshko
+    @author     John Woodman
+    @version    1.1
+    @since      2020-04-17
+    */
     public static class Extensions
     {
         #region Camera
@@ -292,6 +303,13 @@ namespace KinectHandTracking
                 return (point.X - tetrisPiece.Width / 2);
         }
 
+        /*
+        This method is responsible for creating the moving tetris piece 
+        in-game by first creating a bitmap of the PNG tetris image provided, 
+        then applying rotation to the bitmap and setting the position based 
+        off given parameters. This method is called when the player has their 
+        hand closed and is moving the piece.
+        */
         public static double DrawMovingTetrisPiece(this Canvas canvas, Joint hand, double positionY, CoordinateMapper mapper, String pieceName, int rotationPosition)
         {
             if (hand.TrackingState == TrackingState.NotTracked) return 0.0;
@@ -369,6 +387,13 @@ namespace KinectHandTracking
             return (point.X);
         }
 
+        /*
+        This method is responsible for creating the untouched tetris piece 
+        in-game by first creating a bitmap of the PNG tetris image provided, 
+        then applying rotation to the bitmap and setting the position based 
+        off given parameters. This method is called when the player does not 
+        have their hand closed.
+        */
         public static double DrawStationaryTetrisPiece(this Canvas canvas, double position, double positionY, CoordinateMapper mapper, String pieceName, int rotationPosition)
         {
 
@@ -450,6 +475,13 @@ namespace KinectHandTracking
             return (point.X);
         }
 
+        /*
+        This method is responsible for creating the final tetris piece
+        once the stationary or moving tetris piece has reached the bottom
+        of the game boundary. The method first creates a bitmap of the PNG
+        tetris image provided, then storing the final rotation and position
+        based off given parameters.
+        */
         public static void DrawDroppedPieces(this Canvas canvas, List<DroppedPiece> finalTetrisBoard)
         {
             for (int i = 0; i < finalTetrisBoard.Count(); i++)

@@ -73,3 +73,22 @@ C:\Users\John Woodman\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking
 \\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.exe
 \\Mac\Home\Desktop\NUI-tetris\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
 C:\Users\anush\Source\Repos\NUI-tetris\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\bin\Debug\KinectHandTracking.exe.config
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\bin\Debug\KinectHandTracking.exe
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\bin\Debug\KinectHandTracking.pdb
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\bin\Debug\Microsoft.Kinect.dll
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\bin\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\bin\Debug\Microsoft.Kinect.xml
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.csprojAssemblyReference.cache
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\MainWindow.baml
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\App.baml
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\MainWindow.g.cs
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\App.g.cs
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking_MarkupCompile.cache
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.g.resources
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.Properties.Resources.resources
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.GenerateResource.cache
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CoreCompileInputs.cache
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.CopyComplete
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.exe
+C:\Users\John Woodman\Downloads\NUI-tetris-master\NUI-tetris-master\KinectHandTracking\obj\Debug\KinectHandTracking.pdb

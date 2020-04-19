@@ -5,10 +5,18 @@
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
 
-    /// <summary>
-    /// Gesture Detector class which polls for VisualGestureBuilderFrames from the Kinect sensor
-    /// Updates the associated GestureResultView object with the latest gesture results
-    /// </summary>
+    /*
+    The purpose of the GestureDetector class is to define the methods and objects 
+    for pulling frames from the Kinect sensor and using the trained gesture 
+    database to gather gesture results.
+
+    @author     Sydney Achinger
+    @author     Anushri Marar
+    @author     Ganna Voytseshko
+    @author     John Woodman
+    @version    1.1
+    @since      2020-04-17
+    */
     public sealed class GestureDetector : IDisposable
     {
         /// <summary> Path to the gesture database that was trained with VGB </summary>
@@ -35,11 +43,13 @@
         /// <summary> Gesture frame reader which will handle gesture events coming from the sensor </summary>
         private VisualGestureBuilderFrameReader vgbFrameReader = null;
 
-        /// <summary>
-        /// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
-        /// </summary>
-        /// <param name="kinectSensor">Active sensor to initialize the VisualGestureBuilderFrameSource object with</param>
-        /// <param name="gestureResultView">GestureResultView object to store gesture results of a single body to</param>
+        /*
+        This method is responsible for creating the source objects
+        to read in sensor data from the Kinect. It also creates 
+        three database objects that read in the training data from 
+        each of the three gesture databases: GatorChomp, RotateBlock, 
+        and DropBlock.
+        */
         public GestureDetector(KinectSensor kinectSensor, GestureResultView gestureResultView)
         {
             //Console.WriteLine("in gesture detector in");
@@ -133,9 +143,11 @@
             }
         }
 
-        /// <summary>
-        /// Retrieves the latest gesture detection results from the sensor
-        /// </summary>
+        /*
+        This method actually retrieves and sets the
+        gesture detection results read in from the source 
+        objects and based on the database objects.
+        */
         public void UpdateGestureData()
         {
             //Console.WriteLine("UPDATEGESTURE data");
